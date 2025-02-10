@@ -1,0 +1,325 @@
+Iris and Ŧrust
+A Technical Framework for Democratic Belief Coordination
+
+Abstract
+This white paper introduces Iris, a predictive language model designed for integrating diverse perspectives into a coherent synthesis, and Ŧrust, a novel attention mechanism for democratically weighting contributions in context. We describe the technical innovations of temporal embeddings for capturing evolving narratives and source embeddings for discerning provenance, which allow Iris to dynamically contextualize information. We also explain the Ŧrust computation for transparently allocating credibility-based attention weights dependent on contextual factors, incorporating valence (alignment with morality) and uncertainty (alignment with perceived truth) as key components of social impact. Additionally, we present FourThought, a novel human-in-the-loop alignment technique that builds upon and extends existing approaches like RLHF and Constitutional AI, enabling more democratic and adaptive belief coordination.
+
+Introduction
+As the scale and complexity of our information ecosystem grows exponentially, the need for systems that can effectively coordinate beliefs and leverage collective intelligence is imperative. Traditional language models often struggle to discern the relevance, credibility, and temporal context of individual pieces of information. Iris aims to address this gap through specialized embedding schemes and attention mechanisms tailored to aggregating diverse knowledge in a democratized manner.
+
+At the core of the Iris model is the ability to represent the provenance and chronology associated with textual information. Source embeddings encode key characteristics about the creators of textual excerpts, such as their reliability, credibility, tone, and topicality (Amir et al., 2016; Yu et al., 2019). By learning to differentiate between various sources and consolidate different views from the same individual, Iris can synthesize perspectives in a manner aligned with communal wisdom. Temporal embeddings, on the other hand, capture the chronological relationships between events, beliefs, and predictions, allowing the model to understand the progression of ideas and the causal relationships between them (Kazemi et al., 2019; Xu et al., 2019; Fraikin et al., 2024; Farhan et al., 2022).
+
+Additionally, Iris employs a dynamic attention architecture called Ŧrust to transparently allocate higher attention weights to more credible sources dependent on contextual factors. The Ŧrust attention mechanism builds upon the well-established concept of attention in deep learning, particularly in the context of transformers (Vaswani et al., 2017), by introducing a novel approach that combines temporal, source, and token-level information to guide the model’s attention distribution. This data-driven allocation of attention based on contextual trust enables Iris to synthesize perspectives in a way that reflects communal notions of reliability and relevance.
+
+The specialized temporal, source, and attention architectures allow Iris to model the nuances of collaborative sensemaking. As both individual credibility and community narratives shift over time, Iris adapts its integration of perspectives accordingly. This results in outputs that holistically aggregate distributed knowledge to form coherent representations of collective intelligence.
+
+In summary, Iris constitutes a sociotechnical infrastructure for belief coordination that deals with the challenges of information explosion. In later sections, we delve deeper into the technical details of how temporal embeddings capture evolving contexts, source embeddings discern provenance, and the Ŧrust attention mechanism democratizes contribution weighting in a context-dependent manner, incorporating valence and uncertainty as key components of social impact.
+
+Temporal Embeddings
+Temporal embeddings play a crucial role in enabling the Iris model to understand and reason about the temporal dynamics of information and the evolution of collective beliefs over time. By capturing the chronological relationships between events, beliefs, and predictions, temporal embeddings allow the model to understand the progression of ideas and the causal relationships between them (Kazemi et al., 2019; Xu et al., 2019; Fraikin et al., 2024; Farhan et al., 2022).
+
+The goal of timestamp embeddings is to capture the temporal relationships between events or pieces of information, similar to how positional embeddings capture the syntactic relationships between words in a sentence in models like transformers (Vaswani et al., 2017). In practice, timestamp embeddings can be designed to capture various aspects of time, such as absolute timing, relative timing, and cyclical patterns (Kazemi et al., 2019; Xu et al., 2019).
+
+Absolute timing represents the exact timestamp when an event occurred or a token was produced, allowing the model to situate information in precise historical context (Kazemi et al., 2019; Xu et al., 2019). Relative timing captures the time intervals between events or tokens, enabling the model to understand sequential relationships and temporal proximity (Kazemi et al., 2019; Xu et al., 2019). Cyclical patterns reflect recurring temporal patterns, such as daily, weekly, or seasonal cycles, which are critical for capturing periodic behaviors and trends (Kazemi et al., 2019; Xu et al., 2019).
+
+To effectively capture these temporal aspects, we implement a temporal embedding approach that transforms raw timestamps into rich temporal contexts, allowing Iris to reason about belief trajectories with both precision and intuition.
+
+Core Design Insight
+
+Iris’ temporal encoder functions on raw seconds since Unix epoch (e.g., 1717027200 for May 30, 2024) as input—a single integer per event.
+
+Universal Input Standard
+No manual feature extraction (day/month/year flags, holiday calendars). The model learns temporal patterns directly from the primal flow of time as experienced in digital systems. A 2024 protest tweet (1717027200) and a 1990s Usenet post (652147200) pass through the same adaptive machinery.
+
+Contextual Self-Discovery
+From atomic seconds, the encoder autonomously surfaces:
+
+Cultural cycles (weekly work rhythms, annual holidays)
+Event cadences (24-hour news vs. decade-long studies)
+Platform tempos (Twitter’s minute-scale storms vs. academic journals’ monthly debates)
+Scale Agnosticism
+The architecture handles:
+
+Microsecond precision: Tracking live debate sentiment shifts
+Decade-spanning analysis: Modeling generational belief drift
+Without manual tuning — patterns emerge organically from raw seconds.
+This mirrors human temporal intuition: We perceive “3:15 PM” not as 56,500 seconds since midnight, but through learned context (afternoon slump, pre-meeting urgency). Iris develops similar awareness purely from epoch seconds, adapting its temporal lens to each community’s rhythm.
+
+The Three Pillars of Temporal Understanding
+
+Absolute Chronology
+Anchors events to historical context by learning compressed representations of “when” something occurred. Instead of naively memorizing dates, Iris models the progression of time through stabilized linear projections. This allows the system to recognize that a belief expressed in 2023 carries different contextual weight than the same claim made in 2010, even if their surface semantics align.
+Relative Timing
+Encodes the relationships between events through phase-shifted periodic functions. Imagine two debates about climate policy: one where counterarguments emerge within days versus another where rebuttals take years. Iris models these temporal intervals not as fixed durations, but as context-dependent rhythms of discourse.
+Cyclical Patterns
+Captures the heartbeat of collective attention through multi-scale frequency bands. Just as societies have daily news cycles, weekly legislative rhythms, and annual budget debates, Iris learns to anticipate these recurring patterns. Four spectral bands decompose time into natural cognitive scales:
+Seconds-Minutes: Real-time consensus shifts
+Hours-Days: Ephemeral discourse trends
+Weeks-Months: Policy debate cycles
+Years-Decades: Generational belief evolution
+Architecture Philosophy
+
+The temporal encoder acts as Iris’ “mental calendar,” blending three cognitive strategies humans use to reason about time:
+
+1. Landmark Anchoring
+By converting timestamps to days-scaled inputs, the model builds a compressed timeline of belief milestones. This mirrors how humans recall events relative to personal or historical landmarks (“pre/post-pandemic”).
+
+2. Pattern Resonance
+Multi-band frequency analysis allows Iris to detect nested periodicities. A daily spike in climate discussions might resonate with annual COP meetings, creating interference patterns that reveal deeper belief dynamics.
+
+3. Contextual Prioritization
+An adaptive gating mechanism emulates human temporal focus:
+
+Zoom In: Amplifies micro-patterns during real-time deliberation
+Zoom Out: Emphasizes macro-trends for long-term forecasting
+Hybrid View: Balances both for policy impact analysis
+Temporal Attention Dynamics
+
+Iris employs dual attention mechanisms to align temporal reasoning with collective intelligence principles:
+
+Self-Attention
+Models how beliefs echo through time by finding temporal analogues:
+“This week’s healthcare debate mirrors patterns from the 2010 reform discussions.”
+
+Cross-Attention
+Aligns predictions with temporal context:
+“Given the election cycle phase, emphasize recent polling data over decade-old trends.”
+
+Together, they enable three core capabilities:
+
+Temporal Grounding: Positions new claims within historical trajectories
+Rhythm Anticipation: Predicts recurrence of debate cycles
+Interval Sensitivity: Weights evidence based on temporal relevance
+Why This Matters
+
+Traditional models treat time as a flat sequence of events. Iris’ temporal embeddings instead create a relational temporal fabric where:
+
+A claim’s impact depends on its position in belief lifecycles
+Counterarguments are weighted by their temporal proximity
+Predictions account for cyclical attention patterns
+This allows Iris to model belief ecosystems as living entities with growth phases, dormant periods, and seasonal rhythms — crucial for democratic systems where timing shapes truth perception.
+
+The accompanying time_transformer.py demonstrates how these embeddings enable more nuanced predictions compared to naive timestamp approaches, particularly in scenarios requiring alignment between immediate context and long-term trends.
+
+Source Embeddings
+Source embeddings, also known as user embeddings or author embeddings, play a crucial role in enabling the Iris model to incorporate a sense of provenance and understand the origin and authorship of information. These embeddings represent key metadata about the creators of textual excerpts, allowing Iris to differentiate between various sources and consolidate different views from the same individual into a coherent voice (Amir et al., 2016; Yu et al., 2019).
+
+In the training data for Iris, every textual excerpt is tagged with a unique identifier corresponding to its contributor. These source identifiers are then embedded into dense vector representations using a lookup table, where each source ID maps to a learnable high-dimensional source embedding (Amir et al., 2016; Yu et al., 2019). This process parallels how word embeddings work in language models, where unique words map to embedding vectors (Mikolov et al., 2013; Pennington et al., 2014).
+
+The dimensionality of the source embeddings can be chosen to match that of the word embeddings or temporal embeddings used in the Iris model. This ensures compatibility and allows for seamless integration of the source embeddings with other components of the model, such as attention mechanisms and fusion layers.
+
+Given a source identifier i, the corresponding source embedding s_i can be retrieved from the matrix S using a simple lookup operation (Yu et al., 2019):
+
+s_i = S[i, :]
+
+where S[i, :] denotes the i-th row of the matrix S.
+
+The source embeddings encode key latent characteristics about the provenance of information, including attributes such as reliability, credibility, tone, and topicality (Yu et al., 2019). Reliability refers to how consistently accurate and truthful the source tends to be, while credibility represents the expertise and trustworthiness conferred to the source by the community. Tone captures stylistic patterns in how the source communicates, and topicality indicates the subject areas in which the source is knowledgeable.
+
+The source embedding vectors are randomly initialized and then optimized during the training process based on feedback from the community members themselves. As Iris is trained on community datasets using reinforcement learning from human feedback (Christiano et al., 2017), the source embeddings converge to capture semantic relationships between sources based on the community’s contextual notions of credibility and relevance. Sources that exhibit congruent patterns of accuracy or inaccuracy become encoded more similarly.
+
+To capture the evolving nature of individual credibility and community trust allocation, the source embeddings can be dynamically updated over time. As sources gain or lose prominence within community narratives, the embeddings adapt to encode up-to-date contextual assessments of reliability. This can be achieved through the use of temporal source embeddings, which extend the standard source embeddings by incorporating a temporal dimension.
+
+The implementation of source embeddings is straightforward and computationally efficient. The lookup table that maps source IDs to their corresponding embeddings can be easily initialized and updated during the training process. The source embeddings can then be retrieved and integrated with other components of the Iris model, such as the temporal and token embeddings, to provide a comprehensive understanding of the contextual factors surrounding the information.
+
+In conclusion, source embeddings are a fundamental component of the Iris model, enabling it to incorporate a sense of provenance and understand the origin and authorship of information. By encoding key latent characteristics about the creators of textual excerpts and dynamically updating these embeddings over time, Iris can learn nuanced correlations between the production and veracity of information, and synthesize perspectives in a manner aligned with communal wisdom. The simplicity and computational efficiency of source embeddings make them a practical and effective tool for capturing the contextual factors surrounding information in the Iris model.
+
+Ŧrust Attention Mechanism
+The Ŧrust attention mechanism introduced in the Iris model builds upon the well-established concept of attention in deep learning, particularly in the context of transformers (Vaswani et al., 2017). Attention mechanisms allow models to selectively focus on relevant parts of the input when making predictions, which has proven to be highly effective in various natural language processing tasks. Ŧrust introduces a novel approach that combines temporal, source, and token-level information to guide the model’s attention distribution, extending the traditional attention mechanisms that focus solely on the relevance of individual tokens or sentences (Vaswani et al., 2017).
+
+Ŧrust aligns with recent work on source-aware language models, which aim to capture the trustworthiness and expertise of sources when aggregating information. By considering the provenance and authorship of information (Amir et al., 2016; Yu et al., 2019), Ŧrust enables Iris to dynamically adapt its attention weights based on the evolving credibility and relevance of sources over time.
+
+The Ŧrust computation involves three key components: temporal embeddings, source embeddings, and token embeddings. Temporal embeddings capture the absolute timing, relative timing, and cyclical patterns of events (Kazemi et al., 2019; Xu et al., 2019), allowing the model to situate information in its precise historical context. Source embeddings encode metadata about the creators of textual excerpts, such as reliability, credibility, tone, and topicality (Yu et al., 2019), enabling the model to differentiate between various sources and consolidate different views from the same individual into a coherent voice. This approach is similar to user embedding techniques used in personalized recommendation systems (Yu et al., 2019), where user preferences and behaviors are captured in low-dimensional vector representations. Token embeddings represent the semantic content of individual words or subword units, capturing their meaning and relationships within the text (Mikolov et al., 2013; Pennington et al., 2014).
+
+To compute the Ŧrust attention weights, the temporal, source, and token embeddings are first combined using a gating mechanism, which allows the model to adaptively weigh the importance of each component based on the current context. The gating mechanism can be represented as follows:
+
+g_t = σ(W_t * [t_emb; s_emb; tok_emb] + b_t)
+
+g_s = σ(W_s * [t_emb; s_emb; tok_emb] + b_s)
+
+g_tok = σ(W_tok * [t_emb; s_emb; tok_emb] + b_tok)
+
+combined_emb = g_t ⊙ t_emb + g_s ⊙ s_emb + g_tok ⊙ tok_emb
+
+where t_emb, s_emb, and tok_emb are the temporal, source, and token embeddings, respectively; W_t, W_s, and W_tok are learnable weight matrices; b_t, b_s, and b_tok are bias terms; σ is the sigmoid activation function; ⊙ denotes element-wise multiplication; and combined_emb is the gated combination of the embeddings.
+
+The gated embeddings (combined_emb) are then passed through a learned transformation matrix (Ŧrust matrix) to produce unnormalized attention weights:
+
+unnormalized_weights = Ŧrust_matrix * combined_emb
+
+This process is conceptually similar to the query-key-value attention mechanism in transformers (Vaswani et al., 2017), where the query vector is transformed to compute attention weights over the key vectors. In the case of Ŧrust, the gated embeddings serve as the query, while the source and token embeddings act as the keys and values.
+
+The unnormalized attention weights are subsequently normalized using a softmax function to obtain a valid probability distribution over the sources and tokens (Vaswani et al., 2017):
+
+attention_weights = softmax(unnormalized_weights)
+
+The resulting Ŧrust attention weights reflect the model’s assessment of the credibility and relevance of each source and token within the current temporal and contextual scope. By attending more strongly to sources and tokens that have demonstrated expertise, consistency, and positive impact in related contexts, Iris can effectively filter and synthesize information to generate insights that are aligned with the community’s evolving notions of trust and value.
+
+Importantly, the Ŧrust attention weights are dynamically updated based on the model’s interactions with the community and exposure to new information. As sources gain or lose prominence within community narratives and new events unfold, the temporal, source, and token embeddings are adjusted to reflect the changing landscape of credibility and relevance. This allows Iris to adapt its attention distribution over time, ensuring that it remains responsive to the community’s feedback and the evolving social consensus.
+
+The transparency and interpretability of the Ŧrust attention weights are critical for fostering trust and collaboration between the AI system and its users (Floridi et al., 2018). By revealing the distribution of attention weights across sources and tokens, Iris enables the community to understand and influence the model’s decision-making process, promoting a more democratic and accountable approach to knowledge synthesis and collective intelligence.
+
+In conclusion, the Ŧrust attention mechanism represents a significant advancement in the field of attentive language models, introducing a novel approach that combines temporal, source, and token-level information to guide the model’s attention distribution. Drawing inspiration from the query-key-value attention mechanism in transformers (Vaswani et al., 2017), Ŧrust extends these concepts to incorporate the evolving credibility and relevance of sources over time. By dynamically adapting its attention weights based on the community’s feedback and the changing information landscape, Ŧrust enables Iris to effectively integrate diverse perspectives and align its outputs with the community’s values and beliefs. This innovative approach to attention has the potential to transform the way we approach collective intelligence and decision-making, paving the way for more transparent, accountable, and socially responsive AI systems.
+
+Aligning Iris with Collective Intelligence through the FourThought Protocol
+Existing Alignment Approaches
+Constitutional AI and reinforcement learning from human feedback (RLHF) are two prominent approaches to aligning AI systems with human values and preferences.
+
+Constitutional AI (Bai et al., 2022) aims to align AI systems by incorporating explicit rules and constraints into their training process. In this approach, a set of rules or “constitution” is defined to specify the desired behavior and values of the AI system. The AI is then trained to optimize its performance while adhering to these predefined constraints. The constitution can include a wide range of rules, from high-level ethical principles to specific behavioral guidelines.
+
+During the training process, the AI system generates outputs based on its current parameters, and these outputs are evaluated against the constitutional rules. If an output violates any of the rules, it is penalized or discarded, and the AI is encouraged to generate alternative outputs that comply with the constitution. This process involves multiple stages, including supervised learning on constitutionally aligned examples, self-critique and revision of generated responses, and iterative refinement to create a dataset of aligned outputs. The model is then fine-tuned on this dataset to internalize the constitutional principles.
+
+While constitutional AI provides a clear and interpretable framework for alignment, it has some limitations. The predefined rules may struggle to capture the full complexity and nuance of human values, which can be context-dependent and evolving. Additionally, the approach relies on the ability of the system designers to anticipate and codify all relevant ethical considerations, which may be challenging in practice.
+
+RLHF (Christiano et al., 2017) takes a different approach to alignment by leveraging human feedback in an interactive learning process. In this approach, the AI system is initially fine-tuned on a dataset of human-written examples of desired behavior. It then generates multiple outputs for given prompts, and human users are asked to compare and rank these outputs based on their quality and alignment with desired preferences.
+
+The human rankings are then used to train a reward model, which learns to predict the expected reward or preference score for a given output. The AI system is subsequently optimized using reinforcement learning, with the reward model providing the reward signal. This process effectively teaches the AI to align its behavior with human preferences.
+
+RLHF allows for more flexible and dynamic alignment compared to constitutional AI, as it does not rely on predefined rules and can adapt to evolving human preferences. However, the approach is limited by the quality and consistency of human feedback, which can be subjective and noisy. It also requires a significant amount of human effort to provide rankings for a large number of outputs, which can be time-consuming and costly.
+
+The FourThought Protocol: Empowering Democratic Belief Coordination
+The FourThought protocol introduces a novel alignment approach that addresses the limitations of constitutional AI (Bai et al., 2022) and RLHF (Christiano et al., 2017) by enabling a more democratic and inclusive process for belief coordination. It serves as a functional layer between the AI model and human culture, allowing individuals to stake their beliefs and contribute to the alignment of the model with the collective values and knowledge of the community.
+
+At its core, the FourThought protocol recognizes that all cultures represent degrees of morality, truth, and uncertainty. By providing a structured framework for users to express their beliefs along these dimensions, the protocol empowers individuals to participate in the alignment process as a democratic act. To enable this, FourThought introduces the concept of belief staking where tenets of belief are tied to unique IDs connected to individual contributors of knowledge. Reputation is thus bound to these claims across time.
+
+Users contribute thoughts, which are categorized into four types based on the temporal direction of the cognition in relation to truth and morality: predictions (future), reflections (past), questions (uncertainty), and statements (present). These contributions are linked to the user’s identity and the time of submission, enabling the model to understand the provenance and temporal context of the information.
+
+Crucially, users provide feedback (Kwon et al., 2023) on the model’s outputs using multiple continuous interpretable scales (Wang et al., 2024), such as valence (Rathina Velu et al., 2023) and uncertainty (Kahn et al., 2017), enabling a more nuanced capture of user preferences. Valence represents the perceived alignment of the output with the user’s ethical values, while uncertainty indicates the user’s confidence in the truthfulness of the output. This granular feedback enables the model to learn and align with the community’s evolving notions of morality and truth.
+
+Furthermore, Iris, the AI model in the FourThought protocol, generates its own FourThought-compliant thoughts. These include a unique identifier, thought type, content, associated valence and uncertainty scores, timestamp, and any relevant links to other thoughts. This generative aspect allows Iris to actively participate in the community dialogue while adhering to the structured framework of FourThought.
+
+Encoding Uncertainty and Valence
+The FourThought protocol encodes uncertainty and valence as continuous variables, allowing for a more granular and nuanced representation of these dimensions compared to binary or categorical approaches like traditional voting.
+
+Uncertainty is represented as a value between -1 and 1, with -1 representing full confidence that the claim is false, 1 representing full confidence that the claim is true, and 0 representing full uncertainty about the claim. This allows users to express their level of confidence in the truthfulness or accuracy of a staked thought.
+
+Valence is represented as a value between -1 and 1, with -1 indicating strong disagreement or negative alignment with the user’s ethical values, 0 indicating neutrality, and 1 indicating strong agreement or positive alignment. This allows users to express the degree to which a staked thought aligns with their moral and ethical principles.
+
+These uncertainty and valence scores are associated with each staked thought in the FourThought schema, providing a rich source of information for the reward model to learn from.
+
+Generative Communal Learning Loop of FourThought
+As previously mentioned, a key feature of the FourThought protocol is its generative aspect. In RLHF, the model generates multiple responses to a prompt, and users react to these responses by ranking them. In contrast, Iris, the AI model in the FourThought protocol, generates its own staked thoughts and predictions on community responses. It may recursively rewrite these staked beliefs like in Constitutional AI, but only one belief is shown to community members.
+
+These generated thoughts can be standalone or in response to other thoughts, using the linking mechanism provided by the FourThought schema. Community members can respond to these thoughts by ranking the uncertainty or valence, or by staking their own thoughts in relation to them.
+
+Iris predicts the communal response to its own staked thoughts, and these predictions are kept private. As the community provides actual responses, the error between the predicted and real responses is used to update the model iteratively. This feedback loop enables Iris to continuously refine its understanding of the community’s values and beliefs.
+
+Integrating FourThought into the Alignment Process
+The FourThought protocol introduces a novel approach to AI alignment that builds upon and extends the principles of both Constitutional AI and Reinforcement Learning from Human Feedback (RLHF). This integration process leverages several key components to create a more dynamic, context-aware, and community-driven alignment process.
+
+Unlike traditional RLHF, which often relies on unstructured text inputs and scalar rewards, FourThought employs a structured schema for user-provided thoughts. Each thought is categorized into one of four types: prediction (future), reflection (past), question (uncertainty), or statement (present). This categorization allows the model to understand the temporal orientation and epistemic status of each thought, providing richer context for learning. Each thought is also associated with continuous valence and uncertainty scores. This structured approach allows for more nuanced and context-aware learning, similar to how Constitutional AI uses predefined rules, but with the flexibility to evolve based on community input.
+
+The reward model in FourThought is trained on the structured thoughts and their associated metadata. Unlike typical RLHF models that predict a single preference score, FourThought’s reward model learns to predict entire FourThought-compliant thoughts as responses. This can be formalized as:
+
+P(T|x, c) = f(x, c)
+
+Where P(T|x, c) is the probability distribution over possible response thoughts T, given the input thought x and context c. Each T is a complete FourThought-compliant thought, including thought type, content, valence, and uncertainty scores.
+
+FourThought explicitly encodes relationships between thoughts through the “Response To” field in the thought schema. This allows the model to understand the evolving contexts and the progression of ideas over time, capturing the dynamic nature of community discourse. Drawing inspiration from Constitutional AI’s self-critique process, Iris uses the reward model to evaluate its own outputs. This process involves generating multiple potential response thoughts and selecting the most appropriate based on the predicted community response.
+
+Unique to FourThought, Iris predicts potential community responses to its outputs in the form of complete FourThought-compliant thoughts. This goes beyond simple scalar predictions, allowing for a more nuanced understanding of potential community reactions. The model is updated based on the difference between predicted and actual responses. This process combines aspects of RLHF (using community feedback) and Constitutional AI (self-evaluation against principles). The loss function for this update considers the similarity between predicted and actual response thoughts, including their type, content, valence, and uncertainty scores.
+
+Prophet Incentive and Social Proof of Impact
+The FourThought protocol introduces two key incentive mechanisms that are intricately tied to the uncertainty and valence dimensions: the Prophet Incentive and Social Proof of Impact. These mechanisms play a crucial role in shaping both community behavior and the AI model’s learning process over different times horizons and across multiple preference scales (Lin et al., 2020; Cogliati Dezza et al., 2017).
+
+Prophet Incentive
+The Prophet Incentive rewards users for staking thoughts that are initially opposed by the collective belief but later prove to be accurate. This mechanism explicitly rewards exploration by encouraging users to express unconventional ideas and confidently hold positions that are against the current consensus. It is about rewarding individuals who, despite collective disagreement, maintain their stance until the community aligns with their perspective over time. This can involve challenging widely accepted misinformation or holding a confident belief during times of uncertainty.
+
+The Prophet Incentive is calculated by tracking changes in community consensus over time, rewarding thoughts that transition from one extreme to another, where a lone voice speaking against the crowd is later vindicated. The more ahead of the curve in time and confidence, and the more consistent the individual’s stance, the greater the potential for future Ŧrust gains. Importantly, it is not just a community-facing reward system. It directly influences the model’s learning process by adjusting the Ŧrust distribution. Over time, Iris learns to attend more closely to sources that consistently demonstrate prophetic insight, effectively increasing their influence on the model’s outputs.
+
+Social Proof of Impact
+Social Proof of Impact incentivizes users to take actions that lead to positive real-world outcomes, as determined by the valence scores assigned by the community over time. Users stake thoughts representing an action taken in aim of a potential desired future. This mechanism encourages the exploitation of current knowledge for future rewards. It rewards actions that drive meaningful change and align with the community’s values, helping to avoid unwanted predicted futures. These actions are staked as claims and evaluated for truth by the community and Iris, with impact measured through subsequent linked thoughts’ valence scores. This process ensures the model’s outputs align with ideas demonstrating positive community outcomes.
+
+Like the Prophet Incentive, Social Proof of Impact directly affects the model’s learning process. Iris learns to adjust its Ŧrust distribution to give more weight to sources that consistently contribute thoughts with high social impact. This ensures that the model’s outputs are increasingly aligned with ideas that have demonstrated positive outcomes in the community.
+
+Balancing Exploration and Exploitation
+The relationship between the Prophet Incentive and Social Proof of Impact (SPOI) in Cognicism creates a generative tension, driving the system’s ability to anticipate and address future challenges. Cogliati Dezza et al. (2017) highlight how information and reward values change over time, influencing exploration-exploitation balances — mirroring FourThought principles. The Prophet Incentive encourages foresight and long-term thinking, rewarding accurate future predictions that are ahead of the curve. By incentivizing individuals to stand their ground in the face of collective dissonance, we’re actively promoting exploration. Conversely, SPOI rewards actions that have a demonstrable positive impact on the community or environment, encouraging the exploitation of current knowledge towards particular, unlikely but desired outcomes.
+
+This inverse relationship serves a crucial purpose in the Cognicism framework. It ensures that the system doesn’t just reward passive prediction but also incentivizes active problem-solving and positive change. For example, if someone predicts an environmental crisis, they might gain Ŧrust through the Prophet Incentive. This prediction creates an opportunity for others to gain Ŧrust by taking action to prevent or mitigate the crisis, rewarded through SPOI. This dynamic encourages a balance between foresight and action, between identifying potential issues and actively working to address them.
+
+Scaling with Blockchain
+A potential scalability solution involves staking FourThought claims to a blockchain. As predictions are staked further into the future, they become harder to make accurately due to increasing variables. Conversely, as we look further into the past on the blockchain, the security of staked predictions increases. This is because the blockchain’s structure makes it progressively more difficult to alter past records as time goes on and more blocks are added.
+
+This creates an interesting dynamic where the difficulty of making accurate long-term predictions is balanced by the increasing security of past predictions. It incentivizes individuals to make bold, long-term predictions (as these could potentially earn more Ŧrust if proven accurate), while also ensuring that these predictions are securely recorded and cannot be retroactively altered. This makes it possible for Ŧrust over time to be perceived as a valuable dynamic contextual reputational signal that we place similar value in to as money but with different pro-social dynamics. The authors of this paper will release a future paper titled “Federated Learning Chain: A Decentralized Framework for Collaborative Model Training and Knowledge Aggregation” that addresses this concept in more detail.
+
+Generative Tension of Community Reward Signals
+The generative tension between the Prophet Incentive and SPOI is particularly evident when considering predictions of unwanted futures. When someone predicts a negative outcome, it serves as a call to action for the community. The Prophet Incentive rewards the accurate prediction, but SPOI then kicks in to reward actions taken to prevent or mitigate that predicted negative outcome.
+
+This creates a feedback loop that continually drives the community towards better outcomes. Predictions of potential problems spur action to address those problems, which in turn creates new data points for future predictions. This cycle of prediction and action, driven by the inverse relationship between the Prophet Incentive and SPOI, helps the community to continually refine its understanding of potential futures and its ability to shape those futures. This iterative process resembles the OODA loop, enhancing the community’s adaptability and decision-making effectiveness (Boyd, 1987).
+
+Moreover, this system helps to align short-term actions with long-term goals. While the Prophet Incentive encourages thinking about the distant future, SPOI ensures that immediate, tangible actions are also valued. This balance helps to create a community that is both forward-thinking and practically oriented.
+
+In essence, the inverse relationship between the Prophet Incentive and SPOI, combined with the blockchain’s increasing security over time, creates a robust system for collective foresight and action. It encourages a diverse range of contributions — from those who excel at predicting future trends to those who are skilled at implementing solutions — all working together towards better outcomes for the community as a whole.
+
+Integration of Prophet Incentive and Social Proof of Impact
+The FourThought protocol’s unique incentive mechanisms, the Prophet Incentive and Social Proof of Impact (SPOI), require a sophisticated approach to integration that goes beyond traditional next-token prediction. To properly incorporate these long-term incentive mechanisms, Iris employs a multi-scale temporal analysis that allows it to evaluate thoughts and their impacts across various time horizons.
+
+Temporal Multi-scale Analysis for Long-term Dependencies
+To efficiently process long-term dependencies, Iris employs a multi-scale temporal analysis that conceptually resembles the expanding receptive field of dilated convolutions (Yu et al., 2017). This approach allows Iris to capture long-range temporal dependencies crucial for evaluating the Prophet Incentive and Social Proof of Impact (SPOI) while maintaining computational efficiency.
+
+The process begins with time-scale bucketing, where thoughts are grouped into increasingly larger time buckets as we move further into the past, with more recent periods having finer granularity. As the time buckets expand, the data within each bucket is subsampled or summarized. This could involve selecting representative thoughts randomly or Iris generating concise summaries of the thoughts within each time period (Wu et al., 2021). This approach allows Iris to maintain a broad perspective over long time scales without the computational burden of processing every individual thought. Irises can subsample raw thoughts from the period to shape its summaries.
+
+Within each time bucket, the subsampled or summarized data is evaluated for prophetic accuracy and social impact. This multi-scale evaluation involves analyzing changes in uncertainty and valence scores over time, as well as the propagation of impact through linked thoughts. During the fine-tuning process, Iris learns to predict not just the next token or immediate response, but also the potential long-term outcomes of thoughts across different time scales. This allows the model to develop an understanding of which types of thoughts tend to be prophetic or impactful over time.
+
+Based on the multi-scale analysis, the Ŧrust distribution is updated to give more weight to sources that consistently demonstrate prophetic insight or contribute high-impact thoughts. This adjustment happens across different time scales, allowing both recent and long-term performance to influence the Ŧrust scores. Additionally, the reward function used in fine-tuning is augmented to incorporate the Prophet Incentive and SPOI scores derived from the multi-scale analysis. This encourages Iris to generate thoughts that are not only immediately relevant but also have the potential for long-term accuracy and positive impact.
+
+By integrating these mechanisms, Iris develops a “bird’s eye view” across different scales of time, allowing it to properly account for the long-term nature of the Prophet Incentive and SPOI. This approach enables Iris to learn patterns that lead to both immediate positive responses and long-term positive impacts, fostering a more robust and community-aligned AI system that can adapt to evolving notions of impact and insight over time.
+
+Conclusion
+The Iris model and Ŧrust attention mechanism, coupled with the FourThought protocol, represent a significant advancement in the field of AI alignment and collective intelligence. By integrating temporal embeddings, source embeddings, and a novel attention mechanism, Iris offers a powerful framework for democratic belief coordination that addresses the challenges of our increasingly complex information ecosystem.
+
+The temporal embeddings enable Iris to capture the evolving nature of information and beliefs over time, while the source embeddings provide crucial context about the origin and credibility of information. The Ŧrust attention mechanism builds upon these foundations, allowing for dynamic and context-aware weighting of contributions based on their relevance, credibility, and impact.
+
+The FourThought protocol further enhances this system by providing a structured framework for community participation. By categorizing thoughts into predictions, reflections, questions, and statements, and associating them with valence and uncertainty scores, FourThought enables a more nuanced and comprehensive understanding of community beliefs and values.
+
+The integration of the Prophet Incentive and Social Proof of Impact mechanisms represents a novel approach to aligning AI systems with long-term human values and societal benefit. By rewarding prophetic insights and impactful contributions, these mechanisms encourage diverse thinking and positive action within the community, while also guiding the AI’s learning process towards more socially beneficial outcomes.
+
+The multi-scale temporal analysis employed by Iris allows for efficient processing of long-term dependencies, crucial for properly evaluating the Prophet Incentive and Social Proof of Impact. This approach enables Iris to develop a comprehensive understanding of how ideas and their impacts evolve over time, fostering a more robust and adaptable AI system.
+
+In conclusion, the Iris model, Ŧrust mechanism, and FourThought protocol together offer a promising path towards more democratic, transparent, and socially aligned AI systems. By leveraging collective intelligence and adapting to evolving community values, this framework has the potential to address many of the challenges associated with AI alignment and decision-making in complex information environments. As we continue to develop and refine these technologies, we move closer to realizing the vision of AI systems that can truly serve and empower human communities in their pursuit of knowledge, understanding, and positive social impact.
+
+References:
+Amir, S., Coppersmith, G., Carvalho, P., Silva, M. J., & Wallace, B. C. (2017). Quantifying Mental Health from Social Media with Neural User Embeddings. arXiv:1705.00335. https://doi.org/10.48550/arXiv.1705.00335
+
+Bai, Y., Jones, A., Ndousse, K., Askell, A., Chen, A., DasSarma, N., … & Olsson, C. (2022). Constitutional AI: Harmlessness from AI Feedback. arXiv:2212.08073. https://doi.org/10.48550/arXiv.2212.08073
+
+Christiano, P., Leike, J., Brown, T. B., Martic, M., Legg, S., & Amodei, D. (2017). Deep reinforcement learning from human preferences. arXiv preprint arXiv:1706.03741. https://doi.org/10.48550/arXiv.1706.03741
+
+Cogliati Dezza, I., Yu, A. J., Cleeremans, A., & Alexander, W. (2017). Learning the value of information and reward over time when solving exploration-exploitation problems. Scientific Reports, 7(1), 16919. https://doi.org/10.1038/s41598-017-17237-w
+
+Farhan, A., Barranco, R.C., Akbar, M., & Hossain, M.S. (2022). Temporal word embedding with predictive capability. Knowledge and Information Systems. https://doi.org/10.1007/s10115-023-01920-8
+
+Floridi, L., Cowls, J., Beltrametti, M., Chatila, R., Chazerand, P., Dignum, V., … & Vayena, E. (2018). AI4People — an ethical framework for a good AI society: opportunities, risks, principles, and recommendations. Minds and Machines, 28(4), 689–707. https://doi.org/10.1007/s11023-018-9482-5
+
+Fraikin, A., Bennetot, A., & Allassonnière, S. (2024). T-Rep: Representation Learning for Time Series using Time-Embeddings. arXiv preprint arXiv:2310.04486. https://doi.org/10.48550/arXiv.2310.04486
+
+Kahn, G., Villaflor, A., Pong, V., Abbeel, P., & Levine, S. (2017). Uncertainty-Aware Reinforcement Learning for Collision Avoidance. arXiv preprint arXiv:1702.01182. https://doi.org/10.48550/arXiv.1702.01182
+
+Kazemi, S. M., Goel, R., Eghbali, S., Ramanan, J., Sahota, J., Thakur, S., Wu, S., Smyth, C., Poupart, P., & Brubaker, M. (2019). Time2Vec: Learning a Vector Representation of Time. In Advances in Neural Information Processing Systems 32 (NeurIPS 2019). https://doi.org/10.48550/arXiv.1907.05321
+
+Kwon, M., Xie, S. M., Bullard, K., & Sadigh, D. (2023). Reward Design with Language Models. In International Conference on Learning Representations (ICLR). arXiv preprint arXiv:2303.00001. https://doi.org/10.48550/arXiv.2303.00001
+
+Lin, Z., Obeng, A., & Bakshy, E. (2020). Preference Learning for Real-World Multi-Objective Decision Making. ICML 2020 Workshop on Real World Experiment Design and Active Learning. https://realworldml.github.io/files/cr/44_realml_lin_paper.pdf
+
+Mikolov, T., Sutskever, I., Chen, K., Corrado, G. S., & Dean, J. (2013). Distributed representations of words and phrases and their compositionality. Advances in neural information processing systems, 26.
+https://doi.org/10.48550/arXiv.1310.4546
+
+Neumann, G. (2011). Variational Inference for Policy Search in changing Situations. Proceedings of the 28th International Conference on Machine Learning. https://dl.acm.org/doi/10.5555/3104482.3104585
+
+Pennington, J., Socher, R., & Manning, C. D. (2014). Glove: Global vectors for word representation. In Proceedings of the 2014 conference on empirical methods in natural language processing (EMNLP) (pp. 1532–1543). https://doi.org/10.3115/v1/D14-1162
+
+Rathina Velu, S., Ravi, V., & Tabianan, K. (2023). Multi-Lexicon Classification and Valence-Based Sentiment Analysis as Features for Deep Neural Stock Price Prediction. Sci, 5(1), 8. https://doi.org/10.3390/sci5010008
+
+Rosin, G. D., & Radinsky, K. (2022). Temporal Attention for Language Models. In Findings of the Association for Computational Linguistics: NAACL 2022. Association for Computational Linguistics. https://doi.org/10.48550/arXiv.2202.02093
+
+Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., … & Polosukhin, I. (2017). Attention is all you need. In Advances in neural information processing systems (pp. 5998–6008). https://doi.org/10.48550/arXiv.1706.03762
+
+Wang, H., Xiong, W., Xie, T., Zhao, H., & Zhang, T. (2024). Interpretable Preferences via Multi-Objective Reward Modeling and Mixture-of-Experts. arXiv preprint arXiv:2406.12845. https://doi.org/10.48550/arXiv.2406.12845
+
+Wu, J., Ouyang, L., Ziegler, D. M., Stiennon, N., Lowe, R., Leike, J., & Christiano, P. (2021). Recursively Summarizing Books with Human Feedback. arXiv preprint arXiv:2109.10862. https://doi.org/10.48550/arXiv.2109.10862
+
+Xu, D., Ruan, C., Kumar, S., Korpeoglu, E., & Achan, K. (2019). Self-attention with functional time representation learning. Advances in Neural Information Processing Systems, 32. https://doi.org/10.48550/arXiv.1911.12864
+
+Yu, F., & Koltun, V. (2016). Multi-scale context aggregation by dilated convolutions. In International Conference on Learning Representations (ICLR). arXiv preprint arXiv:1511.07122. https://doi.org/10.48550/arXiv.1511.07122
+
+Yu, Y., Wan, X., & Zhou, X. (2019). User embedding for scholarly microblog recommendation. In Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics (pp. 3263–3273). https://doi.org/10.18653/v1/P16-2073

@@ -1,0 +1,87 @@
+The Physics of Cognition and Conflict
+
+How Minds and Memes Shape Social Cohesion and Conflict
+
+Cognition as Lossy Compression
+Human cognition operates by compressing overwhelming sensory inputs into simplified mental representations. This compression condenses the continuous complexity of reality into discrete cognitive symbols by selectively preserving relevant details while discarding extraneous information.
+
+This lossy compression introduces uncertainties and ambiguities, as the discarded details cannot be perfectly reconstructed from the limited compressed representation. Conscious subjective experience arises from the mind navigating the boundary between its selective internal representations and the far greater complexity of the external world.
+
+Meaning Transmission Theory (MTT) proposes that compression involves encoding meaning into signs grounded in shared linguistic conventions and conceptual frameworks. However, noise and differences in interpretation of signs during decoding introduces potential divergence between intended and reconstructed meanings.
+
+Isolated Memepool Divergence in Communication Networks
+
+Individual minds transmit their compressed internal representations to other minds using signs, symbols, and language conveyed over communication and media networks.
+
+Per MTT, communication channels introduce additional noise. Furthermore, the architecture of information networks fundamentally shapes and constrains propagation pathways, governing flows of memes.
+
+Isolated networks with minimal crosstalk foster divergence of memepools into clustered localized lineages that accumulate distinct mutations. Without the grounding influence of external perspectives, locally resonant memes amplify. This drives divergence of isolated networks into polarized memeplexes — cohesive defensive worldviews resulting from accumulation of unchallenged mutations.
+
+Forced mergers between networks with divergent memeplexes often provoke defensive psychological reactions rather than reconciliation, as observed in the context of cognitive dissonance. However, constructing sturdy bridges between networks can facilitate gradual exploration of contradictory perspectives without triggering defensive reactions.
+
+Memes as Cognitive Propagators
+Memes can be understood as discrete informational structures that propagate between minds by shaping neural connections. They spread through imitation and communication, transmitted from one brain to another.
+
+Memes propagate along sculpted trajectories in the brain, guided by the topological landscape of crystallized neural networks. Highly interconnected neural networks have an intrinsic gravitational pull on the flow of neural activation, bending meme trajectories in their direction.
+
+Some memes exhibit greater connectivity to other neurally-encoded concepts and representations. These highly influential memes with stronger gravitational pulls can shape the activation trajectories of many other memes and overall information flow in the brain.
+
+When multiple memes reinforce and activate each other, they coalesce into cohesive memeplexes — resilient networks of mutually reinforcing ideas and beliefs. Memeplexes exhibit self-reinforcing dynamics, with constituent memes activating the memeplex which in turn strengthens the activation of constituent memes.
+
+Network Polarization versus Integration
+The architecture of communication networks shapes meme evolution and propagation. Homogenous isolated networks tend to amplify polarization and extremism of resonant memeplexes. Without external input, the most locally resonant variants get amplified.
+
+However, greater overall network heterogeneity with interlinking bridges permits flow and mixing of divergent memes. This meme flow integrates contradictions and drives evolution toward compromise and moderation rather than endless polarization.
+
+Bridged networks enable selective hybridization of memeplexes, facilitating incremental steps toward reciprocity, empathy, curiosity, and reason — qualities that deflate defensiveness and bring divergent networks into closer alignment.
+
+The Physics of Cognition in a Connected World
+The emergence of communication technologies has profoundly shaped our social fabric, but not always for the better. While allowing for remarkable advancements in coordinated action within societies, they have also inadvertently fostered misunderstanding and conflict on a global scale. Let’s examine how this played out through history:
+
+World War 1: The Telephone’s Double-Edged Sword
+The invention of the telephone facilitated real-time communication among political and military leaders, enhancing national coordination. However, this technology was initially exclusive to the elite, leading to a dangerous imbalance. While leaders could converse, ordinary citizens remained isolated, lacking the means to integrate their perspectives with neighboring nations. This inability to build cross-border understanding sowed the seeds of distrust and parochialism, contributing to the tensions that sparked World War 1.
+
+World War 2: Radio and the Rise of Extremism
+Radio’s advent brought the power of mass communication, efficiently amplifying nationalistic memes across entire populations. Yet, the lack of global integration and the unchecked spread of polarized ideologies in isolated countries allowed extremism to flourish. Countries like Germany and Japan became isolated memepools that reinforced memeplexes calling for for actions and behaviors that directly led to World War 2.
+
+The Cold War: Television and Contentious Isolation
+Television further fostered shared national identities, creating cultural focal points. However, the narrow scope of broadcast programming restricted exposure to alternate worldviews. The US-USSR Cold War exemplified this isolation, only restrained by the existential threat of nuclear annihilation — a memetic deterrent now waning in the collective memory.
+
+The Digital Age: The Internet’s Paradox
+The Internet has enabled an unprecedented level of global interconnection, but its dark underbelly reveals virtually impenetrable enclaves where extremist memeplexes fester unchecked. Anonymity online has eroded the humanizing barriers present in face-to-face interaction, allowing dehumanization to spread.
+
+Conclusion
+In summary, this physics of cognition based on information, minds, and memes provides a framework for understanding the emergence of isolated polarized networks mired in contradiction versus integrated networks with bridges permitting meme flow. By shaping network architectures, we can foster gradual collaborative integration over persistent conflict.
+
+Meaning Transmission Theory
+In the context of semiotics and information theory, we propose a formal, abstract, and technical framework for meaning exchange in human communication. This framework aims to address the challenges associated with noise in meaning transmission and reconstruction while considering the complex interplay between signs, symbols, and context.
+
+Definition of meaning and signs: A meaning (M) is a complex, multidimensional entity that is generated by the sender (E) and represented by a combination of signs (S), where each sign (S_i) is associated with a specific concept (C_i) as intended by the sender. A sign is composed of a signifier (the form) and the signified (the concept it represents, as intended by the sender).
+
+Encoding of meaning: The sender (E) generates a message (Msg) as a function of the intended meaning (M) by selecting and arranging a set of signs (S) in a specific syntactic and semantic structure (Str). The encoding function can be represented as:
+
+E(Msg) = f(M, S, Str)
+
+Channel and noise: The encoded message (Msg) is transmitted through a communication channel (Ch) that introduces noise (N). The noise can be attributed to various factors, such as semantic ambiguity, syntactic variation, pragmatic context, and cultural and individual differences.
+
+Msg’ = Ch(Msg, N)
+
+Decoding and reconstruction of meaning: The receiver (D) attempts to reconstruct the intended meaning (M’) by decoding the received message (Msg’) based on their understanding of the signs (S) and the syntactic and semantic structure (Str). The decoding function can be represented as:
+
+D(M’) = g(Msg’, S, Str)
+
+Alignment and error measurement: The degree of alignment (A) between the intended meaning (M) and the reconstructed meaning (M’) can be quantified using a similarity metric (Sim). The error (Err) in the meaning reconstruction can be calculated as the difference between the intended and reconstructed meanings.
+
+A = Sim(M, M’)
+
+Err = M — M’
+
+Iterative refinement and feedback loop: To minimize the error (Err) in meaning reconstruction, the sender (E) and receiver (D) engage in an iterative feedback loop (IFL), where the receiver rephrases the message (Msg’) and the sender provides feedback on the alignment (A).
+
+IFL(Msg’, A) = h(Msg’, A)
+
+Convergence and shared understanding: Through multiple iterations of the feedback loop (IFL), the participants aim to achieve convergence and a shared understanding of the intended meaning (M). The process is considered successful when the error (Err) in the meaning reconstruction is minimized, and the degree of alignment (A) is maximized.
+
+Convergence = (Err → 0) and (A → 1)
+
+By adopting this theoretical framework for meaning exchange, the potential for information loss due to noise in human communication can be effectively reduced. The approach emphasizes the importance of encoding, decoding, and iterative refinement in the context of semiotics and information theory, ultimately leading to a more accurate and efficient exchange of meaning between individuals.
