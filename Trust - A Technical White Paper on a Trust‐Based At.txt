@@ -1,0 +1,188 @@
+Ŧrust: A Technical White Paper on a Trust‐Based Attention Mechanism for Cognicism
+
+Abstract
+Ŧrust is a novel attention mechanism developed for the Cognicism framework, designed to allocate credibility‐based weights to inputs from diverse sources. Unlike traditional attention that weights tokens based on content similarity, Ŧrust integrates temporal information, source identity, and content features to dynamically adjust a source’s “trust score” — a measure of its credibility derived from past performance. This white paper details the mathematical foundations of Ŧrust, its implementation using neural embeddings and gating mechanisms, and how it is deployed in systems (such as the Iris model) that underpin Cognicism’s promise of democratic, evidence-based collective intelligence.
+
+1. Introduction
+The modern attention mechanism — exemplified by transformer models — is fundamental to natural language processing and sequence modeling. However, conventional attention operates at the level of tokens (words or subwords) and is optimized to maximize predictive performance. In contrast, the Cognicism framework requires a mechanism to weigh entire contributions from multiple sources by their demonstrated credibility over time. This is the purpose of Ŧrust.
+
+Ŧrust serves as a trust currency: it is algorithmically assigned and updated based on how well a source’s contributions have historically predicted or influenced outcomes. Its design is intended for applications such as collaborative forecasting, decision-making, and AI-assisted moderation, where prioritizing reliable voices can guide a community toward better outcomes.
+
+In the following sections, we describe:
+
+The mathematical formulation of Ŧrust, including how source, temporal, and token embeddings are integrated.
+The gating mechanism that combines these signals to produce attention weights.
+The practical implementation in PyTorch, with code excerpts illustrating how Ŧrust is integrated into a transformer-like architecture.
+How this mechanism is used in Cognicism to power systems like Iris, FourThought, and the Prophet Incentive.
+2. Mathematical Foundations
+2.1. Overview
+In a standard transformer, attention is computed via query-key interactions. For a set of input tokens, one computes:
+
+Attention(Q,K,V)=softmax(QK⊤dk)V,\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^\top}{\sqrt{d_k}}\right)V,
+
+where QQ (query), KK (key), and VV (value) matrices are learned projections of the input.
+
+Ŧrust extends this formulation to a higher level: rather than operating solely on tokens, it integrates information from three sources:
+
+Temporal Embeddings (tembt_{\text{emb}}): Represent the time (absolute, relative, and cyclical aspects) at which a contribution is made.
+Source Embeddings (sembs_{\text{emb}}): Encode the identity and historical performance of the contributor.
+Token Embeddings (xembx_{\text{emb}}): Represent the semantic content of the contribution.
+2.2. Gated Combination
+Ŧrust computes a combined embedding that is used to determine the attention weight for each source’s contribution. This is done via a gating mechanism:
+
+gt=σ(Wt⋅[temb;semb;xemb]+bt),gs=σ(Ws⋅[temb;semb;xemb]+bs),gx=σ(Wx⋅[temb;semb;xemb]+bx),\begin{aligned} g_t &= \sigma\left(W_t \cdot [t_{\text{emb}}; s_{\text{emb}}; x_{\text{emb}}] + b_t\right), \\ g_s &= \sigma\left(W_s \cdot [t_{\text{emb}}; s_{\text{emb}}; x_{\text{emb}}] + b_s\right), \\ g_x &= \sigma\left(W_x \cdot [t_{\text{emb}}; s_{\text{emb}}; x_{\text{emb}}] + b_x\right), \end{aligned}
+
+where:
+
+Wt,Ws,WxW_t, W_s, W_x are learnable weight matrices.
+bt,bs,bxb_t, b_s, b_x are bias terms.
+σ\sigma is the sigmoid activation function.
+The notation [temb;semb;xemb][t_{\text{emb}}; s_{\text{emb}}; x_{\text{emb}}] indicates the concatenation of the three embeddings.
+The gated combination is then computed as:
+
+combinedemb=gt⊙temb+gs⊙semb+gx⊙xemb,\text{combined}_{\text{emb}} = g_t \odot t_{\text{emb}} + g_s \odot s_{\text{emb}} + g_x \odot x_{\text{emb}},
+
+where ⊙\odot represents element-wise multiplication. This combined embedding forms the basis for computing the Ŧrust attention score.
+
+2.3. Computing Ŧrust Weights
+Next, the combined embedding is transformed using a learnable matrix (denoted as the Ŧrust matrix WŦrustW_{\text{Ŧrust}}):
+
+unnormalized_weights=WŦrust⋅combinedemb.\text{unnormalized\_weights} = W_{\text{Ŧrust}} \cdot \text{combined}_{\text{emb}}.
+
+These weights are then normalized using a softmax function:
+
+α=softmax(unnormalized_weights).\alpha = \text{softmax}\left(\text{unnormalized\_weights}\right).
+
+The resulting vector α\alpha represents the attention (or trust) distribution over the input sources. Higher values in α\alpha indicate that a particular source’s input should have a greater influence on the model’s output — essentially, that the community “trusts” this source more.
+
+2.4. Temporal Decay and Update Dynamics
+A critical aspect of Ŧrust is its dynamism. As new outcomes are observed, Ŧrust scores are updated. For example, if a source’s prediction is validated over time, its trust score is incremented; if it is proven wrong, its score is decremented. Formally, let TsT_s be the trust score for source ss. An update rule might take the form:
+
+Ts←Ts+η⋅(R−Ts),T_s \leftarrow T_s + \eta \cdot \left(R — T_s\right),
+
+where:
+
+RR is the reward (or penalty) computed from a proper scoring rule (e.g., Brier score) on the source’s prediction.
+η\eta is the learning rate for trust updates.
+This update mechanism ensures that the trust score remains a real-time reflection of a source’s performance, directly influencing future attention weights via the source embedding sembs_{\text{emb}}.
+
+3. Implementation Details in Code
+The following Python/PyTorch code snippets illustrate the key components described above.
+
+3.1. Source Embedding Module
+class SourceEmbedding(nn.Module):
+    def __init__(self, num_sources, d_model):
+        super().__init__()
+        self.embedding = nn.Embedding(num_sources, d_model)
+        self.linear = nn.Linear(d_model, d_model)
+        
+    def forward(self, x):
+        x = self.embedding(x)
+        return self.linear(x)
+This module maps each source ID to a vector in the latent space, which is then transformed linearly.
+
+3.2. Gating Mechanism for Ŧrust
+In the Ŧrust attention mechanism, the gating is implemented as follows:
+
+def compute_gated_embedding(t_emb, s_emb, x_emb, W_t, W_s, W_x, b_t, b_s, b_x):
+    combined_input = torch.cat([t_emb, s_emb, x_emb], dim=-1)
+    g_t = torch.sigmoid(W_t(combined_input) + b_t)
+    g_s = torch.sigmoid(W_s(combined_input) + b_s)
+    g_x = torch.sigmoid(W_x(combined_input) + b_x)
+    
+    combined_emb = g_t * t_emb + g_s * s_emb + g_x * x_emb
+    return combined_emb
+Here, the learnable functions Wt,Ws,WxW_t, W_s, W_x and biases bt,bs,bxb_t, b_s, b_x are implemented as linear layers. The element-wise multiplication and summation yield the final combined embedding.
+
+3.3. Computing Attention Weights
+After computing the combined embedding, we obtain the unnormalized attention scores and then normalize them:
+
+def compute_trust_weights(combined_emb, trust_matrix):
+    unnormalized_weights = trust_matrix(combined_emb)  # Linear projection
+    alpha = F.softmax(unnormalized_weights, dim=-1)
+    return alpha
+This function outputs the probability-like distribution α\alpha, which is then used to weight each source’s contribution.
+
+3.4. Integration in a Transformer-Like Architecture
+In the advanced TrustTransformer class below, we integrate the Ŧrust computation with temporal and source embeddings. Note that we use additional timestamp encoding and a cross-attention mechanism to incorporate temporal context:
+
+class TrustTransformer(nn.Module):
+    def __init__(self, d_model, nhead, num_layers, num_sources, use_temporal=True, use_source=True):
+        super().__init__()
+        self.value_embedding = nn.Linear(1, d_model)
+        self.use_temporal = use_temporal
+        self.use_source = use_source
+        
+        # Calculate total embedding dimension after concatenation
+        self.d_model_total = d_model
+        if self.use_temporal:
+            self.d_model_total += d_model  # Timestamp dimension
+        if self.use_source:
+            self.d_model_total += d_model  # Source embedding dimension
+        # Initialize temporal and source embeddings
+        if self.use_temporal:
+            self.context_t_enc = TimestampEncoding(d_model)
+            self.target_t_enc = TimestampEncoding(self.d_model_total)
+        if self.use_source:
+            self.source_embedding = SourceEmbedding(num_sources, d_model)
+        
+        # Self-attention layers (integrating Ŧrust)
+        self.self_attn_layers = nn.ModuleList([
+            TemporalTransformerLayer(self.d_model_total, nhead, self.d_model_total * 4) 
+            for _ in range(num_layers)
+        ])
+        self.cross_attn = nn.MultiheadAttention(embed_dim=self.d_model_total, num_heads=nhead, batch_first=True)
+        self.fc = nn.Linear(self.d_model_total, 1)
+    def forward(self, x_predictions, timestamps, source_ids):
+        # Embed the raw predictions (B, S, d_model)
+        x = self.value_embedding(x_predictions.unsqueeze(-1))
+        
+        # Incorporate temporal context
+        if self.use_temporal:
+            t = self.context_t_enc(timestamps)  # (B, d_model)
+            t = t.unsqueeze(1).expand(-1, x_predictions.size(1), -1)
+            x = torch.cat([x, t], dim=-1)
+        
+        # Incorporate source information
+        if self.use_source:
+            s = self.source_embedding(source_ids)  # (B, S, d_model)
+            x = torch.cat([x, s], dim=-1)
+        
+        # Pass through self-attention layers that internally use Ŧrust-like weighting
+        for layer in self.self_attn_layers:
+            x = layer(x)
+        
+        # Use cross-attention for final aggregation: query is built from target temporal encoding
+        if self.use_temporal:
+            target_query = self.target_t_enc(timestamps).unsqueeze(1)
+            x_cross, _ = self.cross_attn(target_query, x, x)
+        else:
+            x_cross = x.mean(dim=1, keepdim=True)
+        
+        return self.fc(x_cross.squeeze(1)).squeeze(-1)
+In this model, the concatenated embedding [x,t,s][x, t, s] represents the token, temporal, and source features. Within each TemporalTransformerLayer, the internal attention mechanism can be extended to include the gating operations described above to yield a trust-weighted output. This implementation shows how Ŧrust is integrated directly into the model architecture so that the influence of each source is modulated by its embedding (and thus, its trust score).
+
+3.5. Updating and Using Ŧrust
+On top of the forward pass, an external mechanism (e.g., a training loop) monitors prediction outcomes. For each source, the system computes a score (using a proper scoring rule, such as a Brier score) based on its prediction performance. The trust score TsT_s is then updated via:
+
+Ts←Ts+η⋅(R−Ts),T_s \leftarrow T_s + \eta \cdot \left(R — T_s\right),
+
+which is implemented in code outside the model (perhaps in a ledger update function). This updated TsT_s is then reflected in subsequent forward passes by adjusting the source embeddings via backpropagation or by an explicit update of a trust table that the source embedding layer uses.
+
+4. Practical Use in Cognicism
+Within the Cognicism framework, Ŧrust is used to ensure that the collective decision-making system is aligned with reliable, forward-thinking contributions. Its primary roles include:
+
+Filtering and Aggregating Inputs: When multiple sources contribute opinions or predictions (for example, through the FourThought protocol), the Iris model uses Ŧrust to weight these contributions. High-Ŧrust sources influence the aggregated outcome more strongly.
+Rewarding Predictive Accuracy: The system monitors outcomes and updates each source’s Ŧrust score accordingly. Sources that consistently provide accurate predictions are rewarded with higher trust, which in turn increases their influence on future decisions (this is the basis of the Prophet Incentive).
+Balancing Exploration and Exploitation: By dynamically updating trust scores, the system encourages new voices to contribute while ensuring that those with proven expertise continue to have a strong voice. This mechanism is crucial for maintaining a balance between innovation (exploration) and reliance on proven insights (exploitation).
+Democratizing AI Assistance: In practical applications — such as community Q&A platforms or collaborative forecasting tools — the Iris model, guided by Ŧrust, can generate summaries and answers that better reflect collective wisdom. The result is a more robust decision-making process, where the “best ideas” are surfaced not by popularity alone but by verified credibility.
+5. Conclusion
+Ŧrust represents a significant advancement over traditional attention mechanisms by incorporating the dimensions of time and source credibility directly into the attention calculation. It provides a mathematically rigorous, dynamically updated way to allocate influence within a collective intelligence system, ensuring that contributions are weighted according to proven reliability. Through its integration into models such as Iris — and by interacting with protocols like FourThought, Prophet Incentive, and Social Proof of Impact — Ŧrust enables the Cognicism framework to align human and AI decision-making with long-term, socially beneficial outcomes.
+
+By merging techniques from transformer models, probabilistic scoring, and reputation systems, Ŧrust transforms the simple act of “paying attention” into a democratic and continuously self-correcting process. This paper has provided both the mathematical underpinnings and practical implementation details of Ŧrust, offering a blueprint for its application in real-world systems that require trust-based attention allocation. The ultimate goal is to create systems where reliable, forward-looking voices guide collective action — fulfilling Cognicism’s vision of a wiser, more just society.
+
+References
+Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., … & Polosukhin, I. (2017). Attention is all you need. Advances in Neural Information Processing Systems, 30. https://doi.org/10.48550/arXiv.1706.03762
+Kazemi, S. M., et al. (2019). Time2Vec: Learning a Vector Representation of Time. Advances in Neural Information Processing Systems. https://doi.org/10.48550/arXiv.1907.05321
+Amir, S., Coppersmith, G., Carvalho, P., Silva, M. J., & Wallace, B. C. (2017). Quantifying Mental Health from Social Media with Neural User Embeddings. arXiv:1705.00335. https://doi.org/10.48550/arXiv.1705.00335
+(Additional references on Cognicism and Ŧrust are drawn from Speaker John Ash’s Medium posts, interviews, and related documents within the Cognicism framework.)

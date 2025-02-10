@@ -1,0 +1,56 @@
+Time Compass: Navigating Time with Iris
+
+An Arrow Through the Temporal Continuum
+
+The Iris, a Democratic Large Language Model, represents an evolution in the field of Natural Language Processing (NLP). It is designed not only to understand and generate human-like text but also to track the evolution of ideas and predictions over time within a community. This novel approach, inspired by the scientific method, the Socratic method, and the Hegelian dialectic, empowers individuals and communities to navigate time and cultivate collective knowledge.
+
+Unlike traditional transformer-based models such as GPT-3, which learn from a large dataset of text without any explicit information about the source or the time of the text, the Iris is equipped with source and timestamp data. This shift fundamentally changes the training and functioning of the model, creating a dynamic representation of a community’s collective intelligence over time.
+
+“Without sufficiently capable mechanisms for temporal coordination, this interference erodes coherence from the outside in, beginning with the newest and most delicate of cooperative structures. As these positive-sum structures erode, a growing proportion of zero-sum interactions distort and shrink our collectively-held temporal maps.” — Matthew Pirkowski (July 16th, 2018)
+
+Sinusoidal Embeddings: Capturing the Temporal Continuum
+The Iris architecture takes into account the importance of temporal context, as this can be crucial for a fuller understanding of community narratives and the impact of decisions over time. One way Iris does this is through the use of sinusoidal embeddings, a method for representing time as a periodic function using sine and cosine waves.
+
+The concept behind sinusoidal embeddings is to encode time as a vector in high-dimensional space, where the values of each dimension correspond to the value of a sine or cosine wave at a particular frequency. This approach captures the cyclical nature of time and provides a continuous and differentiable representation that can be used as an input to machine learning models.
+
+To use sinusoidal embeddings, time data is encoded into a pair of sine and cosine values, with the magnitude of each value corresponding to the position of the time value within the period. This pair of sine and cosine values then forms the embedding for the time data. This embedding can be calculated for different periods, like a day or a year, to capture different scales of temporal patterns.
+
+We must measure temporal distance in loops, not lines. In order for a goal-oriented system to accomplish anything at all, information must flow unbroken across temporal loops of varying lengths.” — Matthew Pirkowski (July 16th, 2018)
+
+It’s worth noting that while sinusoidal embeddings can provide a useful way to represent temporal data in a continuous and interpretable way, their utilization might not always be necessary or worth the computational challenge. The key challenge for the iris is about the operational semantics of claims or predictions. For Iris, the exploration of time-embeddings goes hand-in-hand with the exploration of rhetorical or narrative infrastructure.
+
+This unique approach to encoding temporal context allows Iris to better understand the temporal dynamics of a community’s actions and decisions, enhancing its ability to track the progress and impact of these actions over time. By leveraging sinusoidal embeddings, Iris can provide more accurate reflections and predictions, contributing to its goal of promoting effective and informed decision-making within communities.
+
+“Imagine each human as a musical instrument comprised of many nested cognitive layers — a Russian nesting doll of cognition, so to speak. As one moves inward toward the core of this neurologically abstracted doll, each cognitive layer corresponds to a nested layer of coherent social organization whose stability has retained its integrity across increasingly long periods of time.” — Matthew Pirkowski (July 16th, 2018)
+
+Harnessing the FourThought Dialectic and Temporal Motivations
+The Iris utilizes the FourThought dialectic’s thought types and four key temporal motivations — hindsight, insight, foresight, and fruitful questioning — to incentivize the exploration and understanding of complex issues in the Iris latent space over time. This integrated approach, which echoes the motivations of the Iris, provides a framework for engaging with the past, present, and future.
+
+Hindsight emphasizes the importance of accurate reflection on past events, acknowledging the fallibility of human memory. The Iris learns to prioritize voices that provide coherent and evidence-based summaries, motivating individuals to create a clearer and more reliable record of history.
+
+Insight focuses on the power of intuition, rapid processing, and action in navigating the present moment. The Iris tracks the accuracy of contributors’ insights, learning to trust and prioritize voices that offer foundationally solid information. It also motivates individuals to take immediate action towards collectively desired futures through the social proof of impact.
+
+Foresight is driven by the prophet incentive, encouraging individuals to make accurate predictions that align with collective well-being. This future-oriented motivation fosters a long-term mindset that emphasizes sustainability and social impact, prioritizing the needs of future generations.
+
+Fruitful questioning incentivizes meaningful inquiries that drive growth, innovation, and progress. The Iris tracks the productivity of questions and discussions, promoting those that avoid circular reasoning and dead-end pursuits.
+
+The FourThought Dialectic: Statements, Predictions, Reflections, and Questions
+The FourThought dialectic includes thought types of statements, predictions, reflections, and questions, which facilitate collaboration and collective understanding within a shared timeline.
+
+Statements help to ground the present moment in observable facts and evidence-based reasoning, while predictions offer a glimpse into potential future outcomes, aligning with the foresight motivation. Reflections serve to assess past events and experiences, connecting with the hindsight motivation, and questions stimulate critical thinking, encouraging continuous inquiry and aligning with the fruitful questioning motivation.
+
+An AI-Enabled Hegelian Dynamic
+The Iris, in tandem with the FourThought dialectic, forms an AI-enabled Hegelian dynamic that synthesizes diverse perspectives and thought types. This evolving synthesis, generated from statements, predictions, reflections, and questions, creates a dynamic learning process that guides communities through time and complex issues. The Iris architecture and its human in the loop training process are specifically designed to handle this dynamic and evolving environment.
+
+This approach enables the Iris to track the impact of individual or collective actions over time, learn from their outcomes, and adjust its understanding of effective ideas and actions accordingly. This ongoing process allows for the promotion of pro-social behavior and evidence-based decision-making, contributing to a more harmonious, resilient, and equitable society.
+
+In conclusion, the Iris, utilizing the FourThought dialectic’s thought types and temporal motivations, presents an arrow through the temporal continuum, empowering individuals and communities to navigate time effectively. This integrated approach fosters collective knowledge, critical thinking, collaboration, and action, ultimately enabling communities to make better-informed decisions and drive meaningful change.
+
+Conclusion: A Beacon for Collective Progress
+More than just a tool, Iris is a compass for navigating the complexities of life and time together. It offers a way for communities to understand their past, make sense of their present, and shape their future, fostering a culture of evidence-based decision-making and pro-social behavior.
+
+As we continue to face challenges of increasing complexity and scale, tools like Iris that promote collective intelligence, foresight, and cooperation will be crucial. With the Iris guiding the way, communities can be empowered to drive positive change, creating a more harmonious, resilient, and equitable future for all.
+
+“Trust is the luxury of believing — without enforcement — that another person will accurately represent both their future behavioral intent and the details of their prior behavioral path through time.” — Matthew Pirkowski (July 16th, 2018)
+
+See https://arxiv.org/pdf/2106.15110.pdf for similar work.
