@@ -1,0 +1,58 @@
+FourThought: For Aligning Democratic LLMs
+
+FourThought is a unique modern dialectic that aims to facilitate a more decentralized and collaborative approach to scientific inquiry and governance. It is a protocol designed to interface with democratic large language models (LLMs), providing a structured schema for input and output. At its core, FourThought is based on the idea of staking claims and asking questions, with a focus on reflecting on the past, present, and future in a coherent and dynamic way.
+
+The protocol includes two voting mechanisms for each claim: valence and uncertainty. Valence represents how much the thought aligns with one's sense of morality, with a neutral point in the middle, while uncertainty represents how much the claim aligns with one's sense of reality or truth, with 50% representing full uncertainty and 0% and 100% representing full confidence that the claim is false or true, respectively. FourThought can also be used as a dialectic for expressing representations of truth or meaning between people.
+
+Does the Knowledge Resonate?
+Through the use of FourThought, individuals can evaluate and validate their claims and beliefs, allowing for a more rigorous and evidence-based approach to knowledge creation and sharing. FourThought is related to the Socratic and scientific methods in several ways. Like the Socratic method, it involves questioning and challenging assumptions to arrive at a deeper understanding of a topic or issue. And like the scientific method, it emphasizes empirical testing and validation, with a structured framework for formulating and testing hypotheses about various topics or issues.
+
+At its core we can see FourThought is a means to declare or stake beliefs about the past, present and future one feels their community should hear and act upon. Through FourThought communities give directionality to their collective action. This tracking of predictions and comparing them to outcomes across time encodes a moving representation of the will and embodied values of the community.
+
+Iris Mediates Directionality of Collective Will
+In practice, FourThought can help communities collectively make sense of knowledge and take action towards a better future. It is a powerful tool for engaging with uncertainty, modeling the future, and making better decisions, by combining the wisdom of the community with the predictive power of LLMs like Iris or ChatGPT.
+
+FourThought is a means to facilitate decentralized scientific inquiry and governance, providing a more collaborative and rigorous approach to knowledge creation and sharing that can help us build a more just and equitable world.
+
+Simply put, FourThought is a cultural practice that aims to facilitate evidence-based collaborative learning towards pro-social outcomes. At its core, it is a framework for multiple minds to relate to information and knowledge through time. FourThought is so named because it divides language into four types of thoughts — reflections, statements, questions and predictions — based on their addressability at the moment.
+
+Reflections are claims about the past that can be immediately compared to a recorded history. These types of thoughts are often used when recounting events or experiences that have already happened. For example, someone may say, “Yesterday, I went to the park and saw a beautiful sunset.”
+
+Statements are claims about the present that can be verified through polling the community. These types of thoughts are often used when making observations about the current state of affairs. For example, someone may say, “It is currently raining outside.”
+
+Predictions are claims about the future that require time to pass for verification. These types of thoughts are often used when speculating about what may happen in the future. For example, someone may say, “I predict that the economy will improve in the next few years.”
+
+The final thought type — questions — is not about asserting the truth but rather seeking it. Questions indicate to the community that one is staking value in seeking knowledge in a particular direction. Questions are for seeking, less so speaking but they do declare the value of a question.
+
+Questions seek to gather knowledge or draw in wisdom from the community one is embedded within rather than declare or broadcast it outwards. FourThought is a broadcast dialectic for interfacing with the community at large.
+
+While this division of language may not perfectly categorize all thoughts and ideas, it serves as a helpful tool for collaborative learning and dialogue. FourThought is not meant to capture all language or meaning, simply that which is viewed by individuals to be impactful across time for the community to integrate. FourThought is not meant to provide definitive answers or fully resolve claims. Instead, it is a process of staking a belief and speaking a truth in the current moment and context.
+
+In the FourThought dialectic, claims are never fully resolved. Instead, individuals “stake” a belief based on their own interpretation of the available information. This means that there is no moment where any particular sentence or “fact” is declared as known. Instead, individuals speak their truth in the current moment and context, with the understanding that their understanding may change over time.
+
+At its core, FourThought is an embodied cultural practice that promotes collaborative learning and dialogue. It encourages individuals to approach information with an open mind and a willingness to engage in dialogue and discussion with others. By doing so, it fosters a culture of collaboration and understanding, which ultimately contributes to pro-social outcomes.
+
+As a dialectic, FourThought is not meant to perfectly divide all language but exists as a tool for collaborative learning towards pro-social goals.
+
+Schema
+Here’s the schema for representing an individual ‘Thought’ in the FourThought protocol:
+
+Thought ID: A unique identifier for each thought, typically generated using a universally unique identifier (UUID) system. It serves as a reference for the specific thought.
+
+User ID: A unique identifier for the user or individual who submitted the thought. Like ThoughtID, it is often generated using a UUID system and links the thought to its author.
+
+Thought Type: A field representing the type of the thought, which can be one of four string values: “Reflection”, “Statement”, “Prediction”, or “Question.” It categorizes the nature of the thought.
+
+Thought Content: The actual content of the thought, represented as a string that can contain any sequence of characters. It encapsulates the main text or message of the thought.
+
+Valence: A floating-point number representing how much the thought aligns with the user’s sense of morality or value system. Its value ranges from -1 to 1, with -1 indicating strong disagreement with personal values, 1 indicating strong alignment with personal values, and 0 representing neutrality.
+
+Uncertainty: A floating-point number indicating how much the thought aligns with the user’s sense of reality or confidence in the claim. Its value ranges from 0 to 1, with 0 representing full confidence that the claim is false, 1 representing full confidence that the claim is true, and 0.5 representing full uncertainty about the claim.
+
+Timestamp: A field that records the time at which the thought was submitted. It often takes the form of a datetime object, capturing the exact date and time of thought submission.
+
+Response To: An optional attribute that indicates if the thought is a response to another thought. It links the current thought to the ThoughtID of the original thought it is responding to.
+
+Privacy: This attribute classifies the thought’s visibility and distribution. It can take one of three values: “private,” “local,” or “global.” “Private” thoughts are not shared with any Iris model and remain entirely private. “Local” thoughts are shared with specific Iris models but not distributed between different Iris models. “Global” thoughts are staked to the global semantic ledger and are openly accessible for evaluation by all Iris models.
+
+The FourThought protocol uses this schema to structure individual thoughts and facilitate the collaborative learning, evaluation, and decision-making processes within the Cognicism framework.
