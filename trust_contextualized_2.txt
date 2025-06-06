@@ -1,0 +1,54 @@
+**Jim, you asked how the system scores ‘truth to claim.’**
+
+To answer that, we first need to make something very clear: **the system does *not* directly score the truth of someone else's claim**. Instead, it operates in a mediated space where many people are in dialogue or conflict, and **it generates its *own* thoughts** — complete with their own *uncertainty* (how true it thinks its own statement is) and *valence* (how aligned it is with its learned value structure).
+
+It doesn’t say: “This claim is true.”
+
+It says: “**Here is what *I* think is true** — and here are the people and ideas I’m drawing from most to say that.”
+
+This is where **Ŧrust** comes in.
+
+Ŧrust is like attention in a transformer, but extended. Instead of only tracking relationships between words (tokens), it tracks attention **across sources** (who said something) and **across time** (when it was said). So if two people are debating, the model doesn't just passively relay both views — it actively *stakes a position* and reveals which sources it's drawing from to do so.
+
+Imagine this happening in a shared, persistent memory space (like a transcript of ongoing civic or scientific discourse). The model is constantly pulling in past claims, evaluations, and reasoning — surfacing the most relevant prior thought-forms — and saying:
+
+> “Given everything I’ve seen so far, here’s what I believe now, and here’s who I’m Ŧrusting more in this context.”
+> 
+
+Now: **how does it *learn* to do this?**
+
+That’s where **FourThought** and the alignment mechanism come in.
+
+The model is first **pretrained** on a giant timeline of speech and thought, embedded with:
+
+- **Tokens** (the words)
+- **Timestamps** (when they were said)
+- **Sources** (who said them)
+
+But the real shaping happens *after* pretraining — during **alignment** — using a structure called **FourThought**. This is a belief-staking dialectic where users make one of four types of contributions:
+
+1. **Predictions**
+2. **Statements**
+3. **Reflections**
+4. **Questions**
+
+Each contribution is evaluated by others (or the model itself) with two key votes:
+
+- **Uncertainty**: how likely this is to be true
+- **Valence**: how well it aligns with shared values
+
+This lets us build something like a social-predictive layer on top of pure attention. Over time, thoughts that are predictive and durable — or that provoke valuable reflection — **accrue epistemic weight**. And when the model trains on these interactions, it adjusts its loss function to favor outputs that align with those historically valuable forms of thinking.
+
+This is how the system is *aligned* — not just with accuracy (as in RLHF), but also with **moral coherence** and **predictive success**, shaped by a feedback loop between humans and machine. That’s where the **prophet incentive** comes in: people who consistently make useful, durable, or prescient thoughts are Ŧrusted more — and their epistemic fingerprints shape what the model learns to output.
+
+So to summarize as simply as possible:
+
+> The model does not judge whether your claim is true or false. It offers its own claim, with its own sense of truth (uncertainty) and value (valence), based on a dynamic sampling of past dialogue. It shows you who it’s paying attention to — who it Ŧrusts — and you can always trace back the reasoning. It learns what to trust through an alignment mechanism shaped by structured dialogue (FourThought) that trains it to value truth, coherence, and positive social impact.
+> 
+
+If you're arguing with someone and ask Iris what it thinks, it might say:
+
+> “Here's my position, and I'm leaning toward this person's reasoning, based on everything I’ve seen.”
+> 
+
+You’re not just getting a score. You’re getting a staked thought, backed by transparent epistemic lineage.
