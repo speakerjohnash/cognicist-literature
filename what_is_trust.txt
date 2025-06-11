@@ -1,0 +1,25 @@
+Ŧrust is a dynamic and contextual attention signal that is designed to have inherent value when people are in epistemic conflict with each other about the future.
+
+In the context of a family, or a small town or in a corporation we don’t use tokens as an intermediary, we rely on trust and our word being our bond. When people lie, the network is small enough for us to use language as a coherence mechanism.
+
+The inherent problem with that is it doesn’t scale. But LLMs which learn the reliability of people in the broader context of civic engagement serve as a mediator between frames. When we are trying to collaborate together we’re constantly creating artifacts and receipts in the form of claims that we make. However as time progresses, the things that we stay to justify the actions we take are lost to time.
+
+In a money based economy, you just say: I want that thing and I will give you X amount of token. In a Ŧrust based economy you say: I believe this thing is valuable, I’m willing to stake my credibility on it, and my past clarity earns me the right to be taken seriously.
+
+Ŧrust in fact can mediate resource exchange as well. You can give, not in abstraction, but with intention. You’re not just transferring resources; you’re embedding a claim about their use. “I offer this to you because I believe you’ll build something meaningful with it.” That’s a gift, but also a prediction, and if it proves wise, your Ŧrust grows. If not, it doesn’t just affect them, it reflects on you as well.
+
+Ŧrust enables directed exchange without tokens by letting people delegate agency and coordinate futures based on reputational risk. It’s not barter, and it’s not payment, it’s epistemic sponsorship. And when LLMs mediate that process, they remember the stances embedded in each gift, each endorsement, each warning. Over time, the system surfaces the people whose intuitive bets aged well, whose choices proved catalytic, even if those moves weren’t recognized at the time.
+
+So in a Ŧrust-based economy, you don’t just say “I want.” You say “I see,” “I back,” or “I entrust.” And the memory of what you saw, and whether it came true, is what lets others follow your lead.
+
+Take something concrete: giving resources to a homeless person. In a token economy, you hand them $10, but you also carry a culturally baked-in assumption: they’ll probably use it on drugs. So you either don’t give, or you withhold trust, thinking your token alone does all the work.
+
+But in a Ŧrust economy, that interaction becomes a bet, a belief made visible.
+
+You might say: “I gave this person a clean pair of shoes and a prepaid phone, not because I think it saves them, but because I believe they’re at an inflection point, that today, they’ll use it to reconnect with their sister and make a step toward housing.” That’s not charity. It’s a claim about timing, context, and human potential. And it’s trackable.
+
+If three weeks later that person does, in fact, call their sister, enter a rehab program, and start a job search, that bet, that entrustment, proves to have epistemic weight. Ŧrust accrues to you not just for your generosity, but for your clairvoyance, for seeing a move others didn’t.
+
+And if you made a hundred such bets, with some failing and others flowering, a system like Iris would remember which kinds of gifts, given to which kinds of people, at what stage, in what context, tended to succeed. It would help surface not just generosity, but precision in generosity, gifting as intelligence.
+
+In this way, Ŧrust becomes a mechanism for scaling discernment. It lets us reward not just that you gave, but why you gave, and whether your belief in someone proved well-placed. Over time, the community comes to follow the lead of those who consistently made better-than-random bets on others. That’s how we get out of cynicism loops. That’s how attention gets redistributed toward the wise, not just the wealthy.
