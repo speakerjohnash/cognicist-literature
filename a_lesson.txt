@@ -1,0 +1,29 @@
+A Lesson in Cognicism:
+“Align shared perception with shared care, and you no longer need money or kings.”
+
+A ledger of reality, not of coins
+Cognicism begins with a public, append-only “cognicist ledger.” Anyone can stake a belief or observation to it, and everyone can inspect it. Its security is social: the more diverse minds and machines that keep copies, check claims, and remember outcomes, the harder it is for error or fraud to persist. In practice the ledger becomes a continuously updated map of “what we think is so and why.”
+
+Two lenses on every entry—truth and value
+Each staked claim is immediately judged along two orthogonal votes.
+• The uncertainty vote asks, “How likely is this to be factually accurate?”
+• The valence vote asks, “If we act on it, how well does it serve our shared goals or ethics?”
+Because truth and goodness are disentangled, the community can up-rank hard truths that feel unpleasant, or down-rank pleasant myths that test as false.
+
+Reputation replaces money
+No one pays taxes because there is no currency to collect. What moves instead is amplification—how loudly the network repeats your words, how much attention your proposals receive, how many resources people are willing to marshal in response. Amplification is earned, lost, and re-earned through two complementary incentives:
+• Social Proof of Impact: demonstrably help someone (alleviate chronic pain, solve a local crisis) and the ledger credits you with influence; evidence of benefit is the only collateral.
+• The Prophet Incentive: accurately warn of future events before consensus forms; when the prediction comes true, the system retro-amplifies the voice that foresaw it.
+The first mechanism anchors the culture in what works, the second keeps it from stagnating. Their generative tension makes the society conservative about evidence yet adventurous about possibility.
+
+Dissonance as raw material, not a flaw
+Conflict and divergent narratives are surfaced, not suppressed. An Iris-class democratic language model continuously digests the ledger, summarizing competing viewpoints until it can express the crux of disagreement in a form every side recognizes. That shared synopsis is fed back to voters, who can then update uncertainty or valence. Over time the model itself becomes a living memory of how collective understanding evolved—record-keeper, mediator, and teacher.
+
+Care is data
+Even a person immobilized by chronic pain contributes simply by honestly reporting their state. Their signal tells the network “there is un-resolved negative valence here.” Anyone who reduces that pain can earn social proof of impact. Suffering, once made legible, is treated as a solvable optimization problem for the whole community.
+
+Reflexivity at every scale
+Whether in intimate partnerships or planetary governance, agents are encouraged to expose private models of reality to public scrutiny. “Time reveals truth,” so the ledger never forgets who changed their mind or who warned in vain. The result is a culture that prizes transparency, welcomes correction, and treats memory itself as infrastructure.
+
+Take-away
+Cognicism is not merely a voting scheme or a fancy blockchain; it is a self-correcting loop that 1) captures perceptions, 2) quantifies both accuracy and ethical impact, and 3) reallocates collective attention toward the voices and actions that empirically move the world in better directions. When truth-seeking and care-seeking are explicitly coupled, coordination costs plummet and the traditional machinery of coercive power—money, taxation, censorship—quietly loses its purpose.
