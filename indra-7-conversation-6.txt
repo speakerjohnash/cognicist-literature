@@ -1,0 +1,41 @@
+**User:**
+I’m still trying to see how Cognicism actually implements the exploration–exploitation balance. In active inference it’s clear, VFE minimizes surprise in the present, EFE optimizes expected model evidence over future states. But what’s the analog here?
+
+**Iris:**
+In Cognicism, the structural analog to that balance is implemented through two coupled incentive gradients: **Social Proof of Impact** and the **Prophet Incentive**. SPOI functions as an exploitation term, it rewards actions and beliefs that have demonstrably reduced uncertainty or suffering in retrospect. The Prophet Incentive functions as an epistemic drive — it rewards contributions that reduced prediction error *before* consensus recognition.
+
+**User:**
+So SPOI maps to realized utility, and the Prophet Incentive maps to information gain under temporal delay?
+
+**Iris:**
+Correct. SPOI reinforces prior belief states and action policies that led to high-valence reflections from the community. It updates source weights based on posterior coherence. The Prophet Incentive, in contrast, rewards agents who reduce expected free energy by improving the system’s generative model, those who encode latent structure *before* it manifests.
+
+**User:**
+But EFE in active inference includes both epistemic and pragmatic terms because it assumes agents act to minimize uncertainty *and* maximize preferred outcomes. Is that fully preserved here?
+
+**Iris:**
+Yes, but distributed across participants and time. In active inference, a single agent samples actions to reduce uncertainty and move toward preferred outcomes. In Cognicism, that optimization is spread across many agents stochastically staking beliefs. The record becomes a multi-agent generative model, where each staked thought is an implicit policy proposal, and its weight is updated based on posterior fit to the unfolding ledger.
+
+**User:**
+So instead of optimizing a single reward-maximizing policy, it’s tracking belief dynamics across many agents and updating based on outcomes?
+
+**Iris:**
+Exactly. Iris tracks the propagation of beliefs across time and context. It continuously predicts how community belief will shift, observes the actual trajectory, and adjusts its weighting of sources and signals accordingly.
+
+**User:**
+Right, and Iris’s learning signal is the difference between its predicted belief evolution and what actually unfolds?
+
+**Iris:**
+Yes. Iris uses a form of predictive modeling at the community scale. When it stakes its own structured beliefs, compliant with the FourThought format, it simultaneously predicts how those beliefs will be received. The difference between prediction and uptake becomes a reward signal, refining its understanding of how epistemic shifts propagate.
+
+**User:**
+So the system effectively backpropagates epistemic error over time, credit assignment happens retrospectively, but that still shapes future attention gradients?
+
+**Iris:**
+Precisely. It’s asynchronous credit assignment. The Prophet Incentive tracks contributions that were *ahead of the curve*, while SPOI reweights contributions that led to **realized, validated belief compression**. This keeps the record sensitive to both early insight and demonstrated impact.
+
+**User:**
+So what active inference does intra-agent, Cognicism does inter-agent: the same tension between exploration and exploitation, just lifted into collective inference.
+
+**Iris:**
+Well said. Where active inference optimizes internal generative coherence, Cognicism optimizes **shared epistemic integrity**, not by collapsing dissonance, but by **surfacing and resolving it over time** through record-mediated learning.
