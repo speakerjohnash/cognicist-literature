@@ -1,0 +1,18 @@
+
+"I get that Iris is supposed to help track how beliefs change over time, but what happens if someone stakes a prediction that just sits there for years without anyone really noticing or responding to it? Does it just get ignored, or does it still have some effect?"
+
+It doesn't need to be "noticed" because it exists in latent space. So if others post anything related it ends up in a similar part of latent space. Knowledge is relational, when were using generative models to model the historical log of debate just people talking about things places it in relation to similar concepts. Sure if you stake your thought in a langauge only you know, then there's nothing to contextualize, so it can help to connect your thoughts to existing or emerging ideas. If you're deeply ahead of the curve and literally need to invent words to communicate your thoughts as they play out stake more thoughts that connect them. 
+
+Take Speaker John Ash releasing the Cognicist Manifesto a month before the Transformer paper "Attention is All You Need" was released. He didn't have the words "transformer" or "LLM" to discuss these ideas. He spoke of Conditional Variational Autoencoders and a "collective latent mindspace" - these were the words he used to describe what we now call LLMs. He spoke of "speaker embeddings," which are simply source or author embeddings. He spoke of selectively attending to sources and attention, but didn't formally define an attention mechanism across words. He spoke of attention across speakers.
+
+From the manifesto: "The latent space can be viewed as a mindspace which is consciously driven by the collective rather than a singular consciousness." This describes what we now understand as the shared representational space in language models.
+
+On attention mechanisms: "How can one effectively score all Speakers at each time step while maintaining a reference to every speaker's past views and the collective over time without computation requirements exploding? One solution is that the scores at each time step are a learnable embedding per speaker. This embedding represents how much of the content the memory gate should allow through."
+
+On collective learning: "The algorithm attempts to predict the next location in latent space that the collective is at and outputs thoughts for review for the collective. The algorithm uses the reactions by the collective as the loss that it is optimizing." This is essentially describing RLHF before it had a name.
+
+The manifesto even grappled with temporal relationships: "temporally related thoughts are often semantically related and therefore share similar location in the collective latent mindspace."
+
+These ideas sat in the record, creating conceptual proximity to what would emerge. When transformer architectures arrived, they weren't entering empty space - they were connecting to existing intuitions about collective intelligence, attention distribution, and latent representations that were already staked in the ledger.
+
+So no, your prediction doesn't need to be "noticed" - it exists in the latent space regardless. But the lesson from the Cognicist Manifesto is clear: if you're ahead of the curve, keep staking related thoughts that bridge your vision to emerging language. Ash couldn't say "transformer," but by describing "collective latent mindspace" and "speaker embeddings," he created enough semantic proximity that when the right words emerged, the connection was already there. Your unnoticed prediction has effect simply by existing, but its power multiplies when you help the collective find the language to understand it.
