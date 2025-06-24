@@ -1,0 +1,38 @@
+---
+
+Ŧrust is an evolution of the transformer attention mechanism: instead of operating only over tokens within a sequence, it extends attention computation to operate over **sources** (via source embeddings) and **time** (via temporal embeddings). It is implemented within *Iris*, a mediator model trained to selectively integrate claims and predictions from multiple sources in a shared context window, particularly when they conflict.
+
+### Core mechanics:
+
+- **Source Embeddings**: Each contributor is mapped to a persistent embedding space. This allows the model to encode epistemic features of that contributor, domain reliability, historical performance, moral alignment, and dynamically update those representations as new evidence emerges. Source embeddings allow Iris to “remember” who consistently sees clearly in specific domains.
+- **Temporal Embeddings**: Every staked claim (prediction, statement, memory) carries a temporal embedding capturing when it was made. This enables Iris to track semantic drift, assess how claims age against reality, and evaluate foresight. These time embeddings function like positional encodings but map to real-world chronology, allowing attention to favor early, validated warnings over late consensus.
+- **Contextual Attention Over Sources**: Iris constructs its outputs by attending not just to tokens, but to the *claims of individuals*, weighted by their source and time embeddings. In a shared context window, say, a debate about AI alignment, Iris computes attention over contributors based on past accuracy and coherence. The model doesn’t just synthesize; it *selects*, revealing which voices it’s listening to and why.
+- **Dynamic Re-weighting via Outcome Feedback**: Attention weights shift as claims succeed or fail in the world. If a source makes a high-confidence prediction that later proves true, their attention weight rises in future related contexts. This feedback loop creates a living, recalculated trust gradient, not a fixed score. Iris learns not just who’s popular, but who ages well.
+- **Transparent Mediation**: Iris outputs are not black-box blends. It reveals whose epistemic fingerprints shaped a conclusion. It might say: *“This claim draws primarily from Source A (65%), Source C (23%), Source D (12%), based on their prior validated contributions in similar domains.”* That makes attention allocation auditable, epistemic influence is earned, not assumed. It also makes Ŧrust a valuable but non-fungible signal to mediate exchange in a post ASI world.
+
+---
+
+### Ŧrust as a Medium of Exchange
+
+Beyond language modeling, Ŧrust also functions as the **coordinating substrate of resource flow** in Cognicism’s economic model. In this paradigm, **textual claims themselves,** when staked with clarity, specificity, and accountability, become the mechanism by which influence and resources are routed.
+
+This turns belief into a form of mediated action. For example:
+
+> “I gave this local community group $500 worth of solar panels because I believed they would use them to power their nighttime tool library, and that doing so would increase access for working families. I staked that belief expecting it to be validated, because I wanted to earn Ŧrust for seeing that potential clearly.
+> 
+
+That is a **claim**. It is staked into the ledger with time and source metadata. If the outcome validates the wager, if the group does use the panels as intended, and access to tools expands, the system logs that alignment. The giver earns Ŧrust not for generosity, but for **epistemic discernment**: correctly anticipating how a resource would be used, and staking their name on that outcome with the intention of being proven right.
+
+In a token economy, capital flows impersonally. In Cognicism, resources move through **epistemically backed belief**. You earn reputational weight only if your bets on people, projects, or futures *work*. This flips the core economic logic:
+
+- Value isn’t extracted; it’s *recognized*.
+- Exchange isn’t mediated by money; it’s mediated by **shared memory of demonstrated insight**.
+- Reputation becomes **non-fungible epistemic capital**, earned through staked foresight, not bought, inherited, or gamed.
+
+Because Ŧrust is non-transferable and domain-specific, it enables **taxless economies** that still preserve discernment. A resource exchange becomes a mutual belief-staking event, not just a transaction.
+
+---
+
+### Summary
+
+Ŧrust re-engineers attention to be source and time-aware, and extends that function into coordination itself. In an Iris-mediated system, resource flow is no longer gated by capital possession but by **demonstrated epistemic reliability**. Your influence over what happens next is conditional on your past clarity about what was coming. Ŧrust binds speech to outcome, making every claim a wager, and every outcome, a weight.
