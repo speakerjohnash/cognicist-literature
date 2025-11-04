@@ -1,0 +1,67 @@
+# Beyond Statistical Bucketing: Why Language Models Change Everything About Prediction Analysis
+
+When people first encounter the idea of using predictions to identify valuable sources of information, they almost inevitably reach for the same analytical framework. "How do we know someone isn't just getting lucky?" they ask. "What's the statistical significance of their track record? How do we calculate confidence intervals?"
+
+This response is so common it's become predictable. And it reveals a fundamental misunderstanding of what we're actually trying to accomplish.
+
+## The Old Framework: Predictions as Opaque Data Points
+
+Traditional analysis treats predictions like casino bets - discrete events that either win or lose. When someone correctly predicted that COVID would reshape supply chains and accelerate remote work, conventional frameworks can only process:
+
+- Binary outcome: RIGHT/WRONG
+- Frequency: 7 correct out of 9 total
+- Statistical significance: p-value of 17% (not significant!)
+
+This approach obsesses over sample sizes, confidence intervals, and whether someone might be "cherry-picking safe bets." It's the mindset of prediction markets and Bayesian inference - mathematical tools that have **zero access to the semantic content** of what's actually being predicted.
+
+Bayes theorem doesn't know what "supply chain fragility" means. Brier scores can't learn from concepts like "remote work adoption." These statistical frameworks treat the actual reasoning as a mathematical black box.
+
+## The New Reality: Language Models Can Learn From Reasoning
+
+But we now have a fundamentally different capability. Language models can mathematically operate over the **semantic content** of predictions - not just their outcomes.
+
+When someone predicted "COVID will expose the fragility of just-in-time economic systems," a language model can learn from that reasoning pattern. It can recognize that understanding systemic vulnerability in one domain might transfer to insights about fragility elsewhere. The cognitive framework that connected viral outbreak to economic disruption becomes a learnable mathematical object.
+
+This changes everything about how we should think about prediction analysis.
+
+## Reframing the Problem: Source Discovery for Model Training
+
+We're not trying to run statistical tests on prediction accuracy. We're solving a **computational resource allocation problem**: whose reasoning is worth training language models on?
+
+We can't afford to train models on everyone's intellectual output. We need efficient signals to identify sources whose complete corpus of reasoning might teach our models something valuable. Predictions become **discovery mechanisms** - ways to find people whose thought patterns are worth the computational investment.
+
+## The Two Critical Filters
+
+This leads to completely different filtering criteria:
+
+**Filter 1: Consistent World-Modeling**
+Does this source systematically make predictions about reality? Not occasional guesses, but sustained attempts to model how the world works. This indicates their reasoning process might be worth studying.
+
+**Filter 2: Contrarian Accuracy**
+Are they consistently right **and** consistently early in ways that push against consensus? If everyone already believes something, those reasoning patterns won't teach our models anything new. We need people who can see reality before collective opinion catches up.
+
+Someone who correctly predicted remote work transformation, supply chain disruption, and economic fragility from a single virus outbreak isn't getting lucky three times. They're demonstrating cognitive frameworks worth learning from.
+
+## From Tallying Outcomes to Learning Patterns
+
+The statistical approach asks: "Is this person significantly better than chance at binary prediction outcomes?"
+
+The language model approach asks: "What reasoning patterns make this person's predictions valuable, and how can we learn from them?"
+
+One framework treats predictions as isolated bets to be tallied. The other treats them as expressions of transferable cognitive frameworks that models can learn from and apply across domains.
+
+## Why Traditional Analysis Fails
+
+Statistical bucketing made sense when we could only count wins and losses. But when mathematical tools can learn from the **actual reasoning behind predictions**, continuing to obsess over p-values is like evaluating Shakespeare by counting how many of his plot twists surprised audiences.
+
+The value isn't in the prediction outcomes - it's in the reasoning patterns that generated those predictions. And for the first time, we have mathematical frameworks that can operate over those patterns directly.
+
+## The Computational Economics of Attention
+
+This shift has profound implications. Instead of endless debates about statistical significance, we can focus on the real question: which sources of reasoning deserve computational attention?
+
+Someone whose predictions reveal systematic insight into how complex systems fail, adapt, or transform represents valuable training data for language models. Their complete intellectual output - not just their prediction track record - becomes a computational asset worth investing in.
+
+The old framework trapped us in statistical validation loops. The new framework lets us build AI systems that can learn from the best human reasoning and apply those patterns to novel challenges.
+
+That's not just a better way to analyze predictions. It's a fundamentally different approach to collective intelligence.

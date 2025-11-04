@@ -1,0 +1,15 @@
+Generative models can credit the sources from which the draw patterns to form their output.
+
+We can create mechanisms that learn to trust certain sources of information more than others on specific topics based on specific criteria.
+
+So instead of having everyone's voice be equally weighted in the output, someone with a history of predicting real world outcomes could be trusted and weighted higher when the model forms an output.
+
+This can mean things like credit for art output by generative models. Obviously for example if you specify a certain style it is pulling from some artists more than others. This would mean that when an image is output it would say 
+
+This art draws primarily from Artist A (65%), Artist C (23%), Artist D (12%).
+
+Likewise in a generative text model It can say: this output is sampling source A (13%), source B (27%), source C (70%)
+
+And that distribution would represent a form of reputational trust in the model for who it values. It also would represent a type of credit.
+
+If it was bound to a blockchain mechanism you could even distribute tokenized rewards based on these distributions.

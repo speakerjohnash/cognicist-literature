@@ -1,0 +1,36 @@
+Social choice theory is the formal study of how to convert individual preferences into a single collective decision. It begins with a predefined set of options and asks how to aggregate people’s rankings or scores of those options into a single outcome. This logic underpins nearly every voting method: plurality, ranked-choice, score voting, quadratic voting, and so on. But the framing isn’t just methodological, it’s conceptual: the word “choice” is literally in the name. The entire paradigm is built around the idea that decision-making means selecting from a list. It’s why the field is often referred to simply as voting theory.
+
+But that’s exactly the frame I’m rejecting.
+
+Cognicism doesn’t try to fix social choice theory. It calls out that the entire assumption of aggregating discrete preferences over a finite menu of options is the wrong starting point. The moment you reduce collective intelligence to selecting among options, you’re already compressing human cognition in the wrong direction.
+
+Cognicism’s first principle is that reducing collective agency to episodic choices is the wrong compression. 
+
+We very literally have a rallying cry of "voices not choices".
+
+Voice is higher resolution than choice. Real people participate in meaning-making through dialogue, reasoning, disagreement, exploration, and shared context, not just by selecting from a list of options. Preferences can’t be reduced to singular statements that everyone can rank; people need to express their desires in their own language. The moment you force everyone to respond to the same phrased statement, you inject framing bias. That structure may be convenient for polling, but it distorts what people actually think. If we want to capture genuine preferences, we have to move away from tallying altogether. Votes flatten all of that.
+
+So when people say “this is a new voting system,” I need to push back hard:
+
+This is not a better mechanism for picking from options. It’s a refusal to play the game of options at all.
+
+Because:
+
+- Votes are lossy. They discard nuance, reasoning, intent, uncertainty, and care.  
+- Choices are illusions when the frame is top-down and artificially constrained.  
+- Attention, not choice, is the real currency. What we attend to shapes the futures we make coherent.  
+- People make individual choices consistently, regardless of what gets tallied in a formal democratic process.  
+- What matters most is whether those individual choices compound into coherent collective outcomes.  
+- The goal isn’t just to optimize how we choose together, but to understand how individual choices interact, align, and evolve into shared direction.  
+- This is what markets *attempt* to do, align individual incentives with collective goals while preserving personal agency.  
+- But they do this poorly and in a lossy, indirect way that fails to track meaning, impact, or intention with any precision.
+
+All of this might have made sense in the 18th–20th century, when the best coordination tools we had were paper ballots and constitutions.
+
+But we’re now living in a world where LLMs can track beliefs, narratives, and epistemic movement over time, a higher resolution substrate than vote tallies can ever offer. Continuing to think in terms of “voting systems” is like trying to design Netflix’s content engine using punch cards.
+
+The critique here isn’t “here’s a new function for aggregating votes.”
+
+It’s “stop mistaking votes for voice.”
+
+And that’s where this diverges from social choice theory entirely.

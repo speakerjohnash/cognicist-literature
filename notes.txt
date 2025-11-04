@@ -21,3 +21,17 @@ Verification is selectively weighted: individuals with high reputational standin
 ----
 
 In Cognicism, the Prophet Incentive is powered by an essential inverse relationship between blockchain security and predictive difficulty: as time progresses, past entries in the semantic blockchain become increasingly secure, requiring immense computational and social effort to alter, while predictions about the future grow more uncertain and complex due to the exponential branching of possible outcomes. This dual gradient creates a high-fidelity temporal architecture where accurate long-term predictions are both extremely valuable and difficult to falsify. The Prophet Incentive leverages this by rewarding individuals who make accurate, bold predictions far in advance—staking their reputations on uncertain futures—thereby encouraging deep world modeling and long-term thinking. Because these predictions are anchored in an increasingly immutable ledger, any attempt to manipulate the system would require not only altering hardened historical data but also crafting precise forecasts that are public, initially disregarded, and eventually proven correct—an almost impossible feat. This structural asymmetry makes the system highly resistant to manipulation while incentivizing foresight, effectively turning long-range predictive accuracy into an unforgeable signal of epistemic integrity and societal value.
+
+
+------
+
+
+Gruppler Asked:
+
+What if the whistleblowers' claims can't be definitively verified? If there are two predominant consensuses?
+
+My answer: 
+
+So the key thing is that nothing is ever definitively verified but Iris learns to get a very accurate view of the level of uncertainty in the world as it is. The job of the tool is NOT to tell you what is true or what is false but to accurately reflect the level of uncertainty in the world. If there are two dominant consensuses, it's not the Iris' job to to choose one or the other but to accurately present that reality to people for them to independently explore further.
+
+There are definitely realities where the evidence for both perspectives is still emergent and not clear and relatively balanced. The Iris can mediate through time but individuals in this information landscape see these uncertainties as potential ways to earn Ŧrust. The resolution of uncertainty over time through their contributions in the network is an opportunity that draws real world attention and effort.

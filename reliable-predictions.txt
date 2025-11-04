@@ -1,0 +1,23 @@
+Reliable predictions are hard to do, but when a person has a good world model that accurately models reality, when you look back on their history of claims you see consistency between what they said and what came to pass. That's powerful and important signal that not just humans but AI should attend to.
+
+That is the core signal of future power if we want to meaningfully allocate resources towards people who understand actively how to regenerate and make the world a better place to live in.
+
+It's far too easy to amass token and therefore access to power to affect the future through means that aren't aligned with collective well-being.
+
+There is a common presumption of AGI and ASI assuming all the tasks humans do—but who directs them?
+
+The ultimate issue is not the fact that AGI COULD do all the work, it's that we ensure it's directed to do the work that all people actually care about, and when intentions of work don't align with outcomes we no longer give influence to those people over models.
+
+Quantifiable influence, or attention over sources of information is the true power of the future.
+
+If billions of voices are impacted by the actions of AI then billions of voices should shape and impact their output, and it should be weighted by their historical accuracy not just how much money a person has.
+
+Much of the current discourse on economics remains a shallow evolution of what is. It is still rooted in tokenomics and value being codified into fungible tokens. There is also a recurring trend of false claims being introduced early to attract attention, labeled as speculation only after the fact. But that false information gets rooted in people's minds and spirals out far beyond the original context. People who absorb those claims rarely come back to hear the few and far between corrections. The epistemic damage is done.
+
+This despite the fact that attending over sources as codified by source embeddings and having those source embeddings be bound to cryptographic wallets is right there in front of us.
+
+We already have the tools to do this. Instead of framing value purely in terms of fungible tokens, we can bind reputational and predictive signals to cryptographically secured identities. We can embed the structure of information sources into immutable records and reward individuals who anchor their influence in accurate, long-term foresight. Not with token but literally with influence over the output of the models. Models that are trained to help people manage resources together towards outcomes that benefit all.
+
+There is an essential inverse relationship between blockchain security and predictive difficulty: as time progresses, past entries in the blockchain become increasingly secure, requiring immense computational and social effort to alter, while predictions about the future grow more uncertain and complex due to the exponential branching of possible outcomes. This dual gradient creates a high-fidelity temporal architecture where accurate long-term predictions are both extremely valuable and difficult to falsify.
+
+This is why I bring up prediction so often. It is essential to the economics of the future.
