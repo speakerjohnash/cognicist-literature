@@ -1,0 +1,75 @@
+Ŧrust Across Dimensions: Provenance as Attention Over Source, Time, and Content
+
+Every transformer already computes attention over token position. This is not controversial. The query asks "which positions in the sequence matter for predicting the next token?" and the attention weights are the answer. This is the mechanism that makes language models work.
+
+Ŧrust makes one observation: the same operation can be applied over source and time.
+
+If attention over position tells you which tokens matter, attention over source tells you which contributor matters. Attention over time tells you when they matter. Attention over content tells you what they said that matters. These are just additional embedding spaces fed through the same gates, the same softmax, the same weighted combination that already powers every transformer on earth.
+
+The learning function is irrelevant to the claim. You can train with MSE, with RLHF, with any objective. Whatever the model is trying to do well — predict the next token, generate an image, produce a song — it is sampling from what it learned, and the attention distribution over sources is the record of where it pulled from. Ŧrust doesn't add provenance tracking to a model. It reads the provenance that attention already computes, by giving it the embeddings to compute over.
+
+The ablation proof is straightforward: remove source embeddings and the model can't learn who to trust. Remove temporal embeddings and it can't learn when to trust them. Remove content and it has nothing to evaluate. You need all three. Any two of the three collapses to chance. This isn't a tuning result or a benchmark number — it's a structural property of the mechanism. The triplet is irreducible.
+
+What This Means for Images
+
+An image generation model is a transformer attending to patterns. When it produces a banana in Warhol's halftone style, it is attending to features it learned from training data. Those features came from somewhere. The halftone dots came from artists who worked in halftone. The banana shape came from photographs of bananas. The color palette came from pop art reproductions. The compositional relationship between image and text came from works that pair visual subjects with captions.
+
+Right now, that attention is unreadable. The model knows where it's pulling from — the weights exist — but we have no source or temporal embeddings to make them interpretable. Ŧrust says: add those embeddings. Tag training data with source identity and timestamp. Let the attention operate over those dimensions the same way it already operates over position. The weights that come out are the attribution.
+
+This isn't a proposal to build new infrastructure. The attention is already happening. The sourcing is already distributed across the weights. Ŧrust is the claim that if you give the model source and time embeddings, the attention distribution becomes readable as provenance — and that this reading is not an approximation but the actual mechanism by which the output was produced.
+
+The Banana
+
+Consider the image: a Warhol-style pop art banana with "Ceci n'est pas de l'art" in Magritte's script beneath it. A human directed this. They chose to combine Warhol's visual language with Magritte's philosophical framing. They iterated through outputs, rejected the ones that didn't compose the references correctly, pushed the model toward a specific argument.
+
+If source embeddings were present in the image model's training, the attention distribution over this output would show a concentration on Warhol's Velvet Underground cover for the visual style, a separate concentration on Magritte's "Treachery of Images" for the text framing, and a long tail of smaller weights across halftone printmakers, banana photographers, and cursive typeface designers. The splotches on this banana are similar to Warhol's but not identical — they are sampled from a distribution across many halftone sources, with Warhol's work contributing the largest single weight.
+
+But there is a contribution that no training source accounts for: the decision to put these two references together, in this relationship, making this argument. That is the human's directorial contribution. It exists as the residual — the part of the output that can't be attributed to any source in the training distribution because it wasn't in the training distribution. No training image combines Warhol's banana with Magritte's denial in exactly this way, for exactly this purpose.
+
+Fighting the Model
+
+Here is where the mechanism reveals something about creative labor.
+
+Every generative model has a default — the dense center of its learned distribution. Prompt it for "banana" and you get the average of every banana it has seen. The attention is spread broadly and shallowly across thousands of sources, none dominant. This is what the model wants to produce. It is the path of least resistance through parameter space.
+
+When a human fights the model — specifies unusual combinations, rejects defaults, iterates through dozens of outputs, pushes toward something the model doesn't naturally converge on — they are moving the output away from that center. And the further from center the output moves, the less of it can be explained by the training distribution.
+
+This is measurable in principle through the attention weights. At the center of the distribution, the weights are diffuse: many sources contributing small amounts, high entropy, low individual attribution. As the output moves away from center, the weights must concentrate — fewer sources are relevant to the unusual combination being requested — and the residual grows. The residual is the human's contribution. It is the gap between what the model would produce on its own and what it actually produced under direction.
+
+The more you fight the model, the larger the residual. The larger the residual, the more of the output is yours.
+
+This is not a metaphor. It is a property of how attention distributions work. A diffuse distribution over many sources means the output is a consensus of training data. A concentrated distribution with a large unexplained residual means something outside the training data shaped the output. That something is the director.
+
+Music and Audio
+
+The same mechanism applies to audio generation. A tool like Udio samples from musical patterns learned from training data. A prompt for "indie rock" produces the dense center of indie rock — the average of thousands of tracks, dominated by the most common chord progressions, production styles, and melodic contours. The attention over training sources would be broad and shallow.
+
+A musician who fights the model — who specifies unusual harmonic relationships, rejects default arrangements, iterates to find a specific emotional texture the model doesn't naturally produce — is moving the output away from center. The chord progression that doesn't resolve where expected, the timbre that sits between categories, the rhythmic feel that isn't quantized to any standard grid — these are contributions the model can't source from any single training track. They are the residual. They are the musician's work.
+
+And the attention distribution would show it. The more unusual the output, the less any single training source dominates, and the more the distribution attributes to the director's choices. The musician who accepts the first output contributes almost nothing — the attention attributes nearly everything to training sources. The musician who iterates for hours, shaping and reshaping the output against the model's tendencies, contributes genuinely. The attention distribution is the receipt.
+
+The Primitive Scales
+
+The reason this applies across images, music, text, code, sensor data, video, and any other domain is that Ŧrust is not a technique designed for one modality. It is a property of attention itself. Attention computes a distribution over inputs weighted by relevance. If those inputs carry source and time information, the distribution is over sources and times. The content dimension — what the source actually contributed — can be a pixel patch, a spectrogram frame, a word embedding, a scalar measurement, a code token. The gating mechanism adapts to each domain, learning how much temporal, source, and content information matters for the task. The gates open and close based on what the loss function demands. But the structure is the same.
+
+For code generation: the attention over training repositories would show which codebases contributed which patterns. A function that closely mirrors a GPL-licensed implementation would have concentrated attention on that source. A novel function assembled from patterns across hundreds of repositories would have diffuse attention. The licensing implications are readable directly from the weights.
+
+For scientific instruments: multiple sensors measuring the same phenomenon are sources. Each measurement is content. The timestamp is when. A sensor that drifts in cold weather gets low attention weights in winter and high weights in summer. This is the same computation as a forecaster who is accurate during elections but unreliable between them. The data type changes. The mechanism does not.
+
+For language models mediating between human sources: journalists, experts, witnesses are sources. Their claims are content. When they made the claims is time. A journalist who consistently breaks accurate stories in a domain earns higher attention in that domain. A source whose predictions age well gains influence. The attention weights over sources at a given time are the trust scores — not a secondary computation, but the mechanism itself.
+
+For video: each frame carries its own attention distribution over training sources. The visual language of one cinematographer dominates the opening shot, the editing rhythm of another shapes the cuts, the color palette of a third defines the grade. The human director's contribution is the coherence — the narrative thread that holds the sequence together in a way no single training source contains.
+
+For 3D assets: the geometry of a generated model attends to architectural references for structure, to material libraries for surface properties, to art direction from specific games or films for stylistic choices. The attention distribution tells you which artists' work most influenced the output.
+
+In every case, the same triplet: source, time, content. The same gates. The same softmax. The same interpretable attention distribution. The mechanism is the receipt.
+
+What the Banana Proves
+
+The banana image is useful because you can see the distribution without any math. You look at it and you see: that's mostly Warhol's visual language, partly Magritte's conceptual frame, partly the halftone tradition, partly the human director's composition. You don't need attention weights printed out to perceive the sourcing. Your visual system already does a rough version of what Ŧrust computes formally.
+
+But your visual system also makes mistakes. When this image was first discussed, an observer attributed Cattelan's duct-taped banana as a reference. It wasn't. Cattelan's banana and Warhol's banana share a surface feature — banana as art object — but they are separate lineages. The image descends from Warhol's branch. A system that pattern-matches on surface similarity rather than tracking actual attention distributions over sources would make the same error. It would assign attribution weight to Cattelan based on co-occurrence of "banana" and "art commentary" rather than on the actual sourcing that produced this specific output.
+
+This is why the mechanism matters. Human intuition about sourcing is unreliable. It collapses distinct lineages, inflates recent references over older ones, and confuses surface similarity with actual descent. Ŧrust doesn't guess at provenance — it computes it, from the same attention weights that produced the output. The attribution is not a post-hoc interpretation. It is the process.
+
+And the statement on the image — "Ceci n'est pas de l'art" — performs the same move Magritte performed in 1929. The denial is the point. A painting of a pipe is not a pipe. An AI-rendered composition is not art — or is it? The answer depends on where in the attention distribution you draw the line. If the output sits at the center of the training distribution with diffuse attention across thousands of sources and no directorial residual, the denial is straightforward: it's a statistical average, not a creative act. If the output required sustained human direction that moved it away from center, concentrated the attention on specific references, and produced a residual that no training source contains — then the denial performs the same paradox Magritte's did. The denial itself is the artistic gesture. And the attention distribution is the evidence either way.

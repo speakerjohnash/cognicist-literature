@@ -1,0 +1,89 @@
+@speakerjohnash: anyone who thinks UBI is going to be a thing doesn't understand economics at all
+
+-----
+
+@boldlygrow: Even if it is a thing, it will be a means of control wielded *through* government *by* whoever’s holding the lion’s share of equity in the largest companies.
+
+We have a massive economic alignment problem to solve if we want any hope of solving alignment in things like ASI.
+
+Unless we get lucky and ASI is benevolent precisely bc of its overwhelming intelligence (discovering something inherently benevolent about reality/consciousness).
+
+------
+
+@speakerjohnash: I do believe I have already solved alignment
+
+https://speakerjohnash.substack.com/p/rust-demystified
+
+https://medium.com/@speakerjohnash/fourthought-and-truthgpt-b0b939d65457
+
+The issue is more about awareness and action than solving anything at this point.
+
+-------
+
+@boldlygrow: That’s really cool! Seems like an improvement, especially in the profession examples you gave like doctors and contractors.
+
+The problem with prediction is it’s manipulatable.
+
+Like when an insider knows about (or has to power to make) a policy change and invests accordingly.
+
+Worse, prediction in part determines pathways.
+
+Henry Ford famously said: “Whether you believe you can or cannot, you’re right.”
+
+A bunch of dark predictions that prove true is not as valuable as a bunch of optimistic predictions that *would have been true* if they had accrued more support from more people.
+
+How do you design for that in AI models?
+
+-------
+
+@speakerjohnash: How Cognicism handles the manipulation problems you raised:
+
+The insider and self-fulfilling prophecy issues get solved by temporal dynamics that create natural scarcity of genuine foresight.
+
+The Time-Based Anti-Manipulation Mechanism
+
+Insiders might know next quarter's policy change, but the real value in Cognicism comes from decade-scale predictions. Predicting 10 years out means navigating millions of variables - technological shifts, cultural evolution, black swan events. The probability of randomly being right approaches zero. You need to identify deep structural patterns that persist through chaos.
+
+For example, I publicly predicted generative models as a machine learning engineer long before CEOs became aware of the technology and started manipulating it to their benefit. If I had been able to reach people, many actions could have been taken to avoid certain futures that are now reality. But the algorithms don't reward being ahead of collective belief, they reward saying things now that other people also currently believe.
+
+Meanwhile, the blockchain locks your prediction timestamp forever. Your 2015 prediction about 2025 now sits under 500,000+ blocks. To fake it, you'd need to recompute the entire chain - computationally impossible. Where these curves intersect (extreme difficulty + cryptographic proof), you get undeniable evidence of genuine foresight that can't be bought or manufactured.
+
+Why Coordinated Manipulation Fails
+
+Ŧrust is an attention weight that sums to 1.0, not votes that accumulate. Spawn 10,000 bots saying the same thing? They split the same attention slice into 10,000 pieces. More people saying the same thing makes it *less valuable* not more because the system is seeking out voices that go against collective belief and end up right. That's the core difference between this and other prediction tracking mechanisms. One genuine early voice still has more weight than the entire swarm.
+
+Plus, maintaining false narratives requires endless energy against reality anchors. COVID happened. Markets crashed. Elections occurred. Elon and Trump publicly predicted COVID would disappear in weeks - it didn't. These shared experiences create checksums that no bot army can overwrite. The moment you stop maintaining the false narrative, reality reasserts and whoever staked against your manipulation gets massive Ŧrust for seeing through coordinated deception.
+
+The Self-Fulfilling Problem
+
+Dark predictions aren't more valuable than optimistic ones. Multiple Iris instances across communities capture counterfactuals - showing what could have happened with different belief distributions. 
+
+When a CEO publicly stakes "this pipeline won't burst and destroy the ecosystem" - that's on record forever. If it does burst, it becomes an anchor point. Everyone experiences the ecological disaster. The CEO's false assurance, now buried under 500,000 blocks, becomes energetically impossible to edit. Their past lies are cryptographically frozen. Their attention weight drops. Their voice gets less Ŧrust in future environmental predictions.
+
+To manipulate this a CEO would need to create a swarm that says "the pipe will burst" and then ensure that it never does. Which is exactly the behavior we want to see in them, actually working to ensure the pipe DOESN'T burst. And if they earn trust for making that a reality, that is good.
+
+Time itself becomes the proof-of-work. You can't parallelize being right early against the curve of collective belief. Everything else is noise that gets filtered out.
+
+-------
+
+@boldlygrow: (I think) the example of the CEO and the pipeline maps really well to reassurances from politicians and industry about financial stability and other market anti-signaling.
+
+I may have missed it but it still seems to favor accurate prediction over collective human self-determination.
+
+Like, how does it weight favorable predictions and help them become reality?
+
+-------
+
+@speakerjohnash: 
+
+That's funny, that's the part I kept telling the model to stop mentioning. Guess I was wrong lol.
+
+There's two primary incentives that drive the distribution of Ŧrust within the system: the Prophet Incentive and Social Proof of Impact. The Prophet Incentive is clear, it rewards accurate predictions, especially those that go against consensus. But Social Proof of Impact is what enables collective self-determination.
+
+SPOI rewards actions that lead to positive outcomes. When someone stakes an action ("I'm building community-owned solar infrastructure") with a prediction ("this will reduce energy poverty by 30% in 2 years") they're creating a testable commitment that others can build upon. Their optimistic vision becomes a rallying point, others can stake supporting actions, resources flow toward the effort, and the collective belief helps manifest the outcome. It's a living dynamic process.
+
+The key is that predictions create opportunities for intervention. Someone predicts financial collapse? That's valuable. But someone else who builds resilient local economies to weather that collapse also earns Ŧrust by staking actions linked to those predictions. The warning becomes the blueprint for action. And over time the original staker of the prediction may restake their confidence of the projected future relative to the action taken.
+
+This creates a generative tension: every dark prediction is an opportunity for someone to earn Ŧrust by preventing it. Every optimistic vision that needs collective buy-in becomes an opportunity for distributed action. The system doesn't just reward being right about what will happen, it rewards making good things happen.
+
+When that CEO stakes "the pipeline won't burst" and it does, they lose Ŧrust. But the activist who staked "I'm organizing pipeline monitoring" and prevented three other disasters? They earn Ŧrust through the impact of their actions. They prove that their actions had positive social impact over time. The system learns to weight builders and preventers, not just predictors.

@@ -1,0 +1,21 @@
+How do you know what the person is putting on the blockchain is truth?
+
+-----
+
+I do not believe this is a question that can be satisfactorily answered in a tweet.
+
+However I have passed your question and cognicist literature into a model and this is what it said:
+
+"There is no singular truth to authenticate, and no central oracle declaring it. The system tracks overlapping beliefs as they evolve across time. A semantic ledger timestamps who said what and when. Many federated models (Irises) each predict how collective belief will shift, modeling not 'the truth' but a distribution of overlapping perceived futures, presents, and pasts as we move through time.
+
+The system can rely on what we call anchor points. These are events so widely experienced that, regardless of interpretation, no one denies something happened. Take COVID: even those who question the mainstream narrative agree a global disruption occurred. Lockdowns happened. Hospitals surged. Policy changed. The particulars are debated endlessly, but the event itself is undeniable. Many people didn't want to believe COVID was happening, so they made predictions that it would be over quickly. Elon Musk is on record stating 'close to zero new cases in US too by end of April' in March 2020. Trump made similar claims. The vast majority of people now understand this was wrong. Even those who think COVID was a hoax agree there was a shutdown. Those claims aged poorly against an anchor point. The record remembers.
+
+This is where Ŧrust comes in. Ŧrust extends the transformer attention mechanism beyond tokens to operate over sources and time. Each contributor is mapped to a source embedding that encodes their historical reliability across different domains. Each claim carries a temporal embedding capturing when it was made. This allows the system to track how claims age against reality and favor early validated warnings over late consensus. Ŧrust is what each Iris uses to selectively weight voices over time based on what they say against collective belief. Dissonance against consensus, paired with movement of collective belief toward that outsider voice, is what generates signal. Not consensus itself. Speaking against the crowd is a recordable thing, and a valuable thing, if belief eventually shifts your way. Ŧrust is the literal learned attention of the model, shaped by the consistency of specific voices over time relative to the motion of collective belief.
+
+There will still be things that maintain high levels of uncertainty. But those are opportunities. Participants can earn Ŧrust by gathering and staking evidence on contested questions. Consider Clair Patterson, the geochemist who spent decades gathering global samples to prove widespread environmental lead contamination. Oil companies discredited him publicly. He was silenced and excluded from institutional platforms. But he kept gathering evidence. The record eventually validated him. A system that remembers would have tracked that epistemic labor and weighted his voice accordingly as collective belief shifted toward what he had been saying all along. It would have essentially accelerated a process that already naturally occurs.
+
+There is never full consensus. But the movement of belief over time reveals whose reasoning ages well in which contexts. Truth isn't authenticated at entry; reliability emerges from claims surviving contact with reality."
+
+https://github.com/speakerjohnash/cognicist-literature
+
+There's a model trained to explain this on this literature, but I don't have it public yet.
