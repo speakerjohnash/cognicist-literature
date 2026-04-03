@@ -1477,3 +1477,346 @@ Looking across the full research arc, these are the real breakthroughs — the r
 **Next step:** Add value dropout to the foundation test and rerun. If the normalized encoding generalizes with dropout, the lesson is universal: **normalization requires value dropout to prevent memorization.** They are a package deal — normalization gives the encoding better numerical precision, but that same precision makes memorization easier. Dropout breaks the memorization path.
 
 This would be a satisfying unification: the two breakthroughs (value dropout from v2, normalization from Phase 17) aren't independent techniques — they're complementary. Normalization opens the door; dropout ensures the model walks through it toward generalization rather than memorization.
+
+---
+
+## Phase 18: Fixing the Normalized Foundation Proof (2026-03-26)
+
+### The Diagnosis: Gradient Starvation
+
+The normalized encoding wasn't memorizing — it was **dying**. Parameter inspection: 0/64 active dims, temporal variance = 0.00. The encoding produced constant output regardless of timestamp.
+
+**Root cause:** The gradient `d(loss)/d(freq_band)` through `sin(x * freq)` is proportional to `x`. With raw seconds x ≈ 1.58e9, freq_bands get enormous gradient. With x_norm ∈ [0,1], freq_bands get ~1e9 times less gradient — they can't move. In trust, the multiplicative `t*s` interaction amplifies gradients through source embeddings. The time series task has no such amplifier.
+
+### The Fix
+
+One-line change in `NormalizedTimestampEncoding.forward()`: multiply `x_norm` by `ts_range` before passing to `sin()`. Trend path still gets [0,1]. Periodic path gets seconds-scale magnitude for gradient amplification.
+
+### Results (seed=42, 50 epochs, split LR)
+
+| Model | Test Loss (MSE) | vs No Encoding |
+|-------|----------------|---------------|
+| Normalized (range-scaled) | 0.020 | 39.5x better |
+| Original | 0.040 | 20.1x better |
+| No encoding | 0.806 | baseline |
+
+Parameter inspection confirms the encoding is alive: gate 50/50 trend/periodic, 10/64 active dims, temporal variance = 1.75, real FFT structure. The normalized encoding now outperforms the original by 2x on test loss.
+
+### Trust Results with Range-Scaled Encoding (seed=42)
+
+`trust_v7.py` now imports the range-scaled `NormalizedTimestampEncoding` from `time_transformer_proof.py`.
+
+| Config | Range-Scaled | Ablations | Random |
+|--------|-------------|-----------|--------|
+| SIMPLE (50ep) | 85.3% | 35-36% | 33.3% |
+| HARD (100ep) | 76.8% | 13% | 12.5% |
+
+Trust proof holds — all ablations at random on both configs.
+
+**Note:** These trust results were accidentally run with two separate encodings (the old Config A architecture). trust_v7.py has been corrected to use one shared encoding. Shared encoding results with range-scaled normalization pending.
+
+### Updated Architecture Comparison
+
+| Architecture | SIMPLE (best) | HARD (best seed) | Encodings |
+|-------------|--------------|-----------------|-----------|
+| Target-only normalized | **94.5%** | 58.9% | 1 (query only) |
+| Config A unnormalized (v4) | 88% | 44.8% | 2 separate |
+| Range-scaled normalized (two enc) | 85.3% | **76.8%** | 2 separate |
+| Config A normalized old (v7) | 68% | 76.5% | 2 separate |
+| Shared normalized (200ep) | 75.7%+ | 70.9% mean | 1 shared |
+| **Range-scaled shared (v7)** | **89.6%** | **74.5%** | **1 shared** |
+
+The range-scaled encoding fixed the foundation proof (normalized now outperforms original on time series by 2x) and improved trust SIMPLE by 17pp over the old normalization with two encodings (85.3% vs 68%). HARD is comparable to previous best (76.8% vs 76.5%).
+
+**Shared encoding + range-scaling results (seed=42):**
+- SIMPLE: 89.6% best test (50 epochs). Ablations at random (~35%). Up from 75.7% (old shared normalized at 200ep).
+- HARD: 74.5% best test (100 epochs). Ablations at random (~13%). Up from 70.9% mean (old shared normalized).
+- HARD was still climbing at epoch 90 (73.3%) — more epochs may improve further.
+
+The key result: one shared encoding with range-scaling now works on **both** time series prediction and trust learning. The old normalization worked on trust (via `t*s` gradient amplification) but died on time series. Range-scaling fixes time series without hurting trust. The shared encoding is now the best single-encoding architecture for both SIMPLE and HARD, closing the gap with the two-encoding results (85.3%/76.8%) while using a cleaner, more principled architecture.
+
+### 3-Seed Benchmark (200 epochs, full model only)
+
+| | Seed 42 | Seed 123 | Seed 7 | **Mean** |
+|---|---|---|---|---|
+| **SIMPLE** | 83.1% | 93.5% | 93.5% | **90.0%** |
+| **HARD** | 78.0% | 71.0% | 65.8% | **71.6%** |
+
+Parameter inspection across seeds:
+
+| | Seed 42 | Seed 123 | Seed 7 |
+|---|---|---|---|
+| **SIMPLE gate (trend/periodic)** | 48/52 | 29/71 | 7/93 |
+| **SIMPLE active dims** | 124/128 | 121/128 | 125/128 |
+| **SIMPLE temporal variance** | 11.96 | 24.36 | 30.77 |
+| **HARD gate (trend/periodic)** | 0.3/99.7 | 0/100 | 51/49 |
+| **HARD active dims** | 63/128 | 108/128 | 19/128 |
+| **HARD temporal variance** | 36.15 | 41.66 | 8.06 |
+
+**Key observations:**
+- SIMPLE is robust: 90.0% mean across 3 seeds. Seed 42 is the weak link (83.1%) — the gate stays near 50/50 trend/periodic instead of committing to periodic.
+- HARD seed=42 at 78.0% is a new all-time HARD best (previous: 76.8% with two encodings).
+- HARD seed=7 failed to discover periodic structure: gate stuck at 51/49, only 19/128 active dims, temporal variance 8.06. This is the frequency discovery problem — when the gate doesn't commit to periodic, the encoding can't represent the cyclical expertise pattern.
+- HARD variance is the bottleneck: 65.8%–78.0% range (12.2pp spread) vs SIMPLE's 83.1%–93.5% (10.4pp).
+- On HARD, the encoding consistently goes fully periodic (gate → 0/100) when it succeeds — the trend component is useless for cyclical expertise. Seed 7's failure to discover this is the outlier.
+
+### 500-Epoch Training Curves (seed=42)
+
+Ran SIMPLE and HARD for 500 epochs to see whether more training helps and to chart train/test dynamics over time. Chart: `plots/v7_500ep_curves.png`.
+
+| | 200ep best | 500ep best |
+|---|---|---|
+| **SIMPLE** | 83.1% | 88.8% |
+| **HARD** | 78.0% | 68.3% |
+
+**What the curves show:**
+
+1. **The model is genuinely generalizing, not memorizing.** Test accuracy on SIMPLE sits at 75-88% for hundreds of epochs (well above 33.3% random). HARD test sits at 40-68% (well above 12.5%). If the model were memorizing training data, test would collapse toward random — it doesn't.
+
+2. **More epochs don't help.** SIMPLE peaks around epoch 80-150 then oscillates for the remaining 350 epochs with no upward trend. HARD peaks early and the best-checkpoint approach just catches lucky snapshots. The learning is done by epoch ~100-200; beyond that, we're rolling dice.
+
+3. **Training stability is the bottleneck.** Test loss on both configs shows massive oscillation — swinging from 0.05 to 1.0+ on SIMPLE, similar on HARD. Train loss is smooth and low. The model finds good solutions then loses them epoch to epoch. This isn't a capacity or data problem — it's an optimization problem.
+
+4. **HARD is more unstable than SIMPLE.** HARD test accuracy swings 40pp within spans of 20-30 epochs. Train accuracy also oscillates (60-80%) unlike SIMPLE's stable 92%. The 8-source problem with 365-day cycles is harder to lock onto and easier to lose.
+
+### What We Know Now (Phase 18 Summary)
+
+**Proven:**
+- The architecture works. One shared encoding + concatenated subspaces + cross-attention query = genuine generalization on both SIMPLE and HARD.
+- Range-scaled normalization fixed the gradient starvation problem. The encoding is alive (real FFT structure, active dims, meaningful gate values).
+- Ablations confirm the mechanism: all three legs of the triplet (value, time, source) are necessary. Remove any one and accuracy drops to random.
+
+**The remaining gap:**
+- SIMPLE: 90% mean (3-seed), should be higher with stable training.
+- HARD: 71.6% mean (3-seed) with high variance (65.8-78.0%). Seed-dependent gate discovery and training instability are both contributing.
+
+### Phase 19: Hyperparameter Experiments (2026-03-27)
+
+After the 500-epoch training curves revealed test oscillation, we ran a series of experiments to find the next lever. Important caveat: these experiments interact with each other and with the architecture changes from Phase 18. A variable that did nothing on an older architecture may matter now, and vice versa. Results should be read as data points in a complex landscape, not definitive claims.
+
+#### LR Scheduling (seed=42, 200 epochs, SIMPLE + HARD)
+
+| Schedule | SIMPLE | HARD |
+|---|---|---|
+| **Constant (1e-3)** | **83.0%** | **72.3%** |
+| Cosine decay | 81.1% | not completed |
+| Warmup + cosine | 74.4% | not completed |
+
+LR scheduling hurt. Constant LR won on both configs. The hypothesis was that late-training oscillations came from overshooting a found solution, and decaying the LR would let the model settle. This was wrong, or at least wrong for these specific schedules and this architecture. The oscillation has a different cause.
+
+#### Value Dropout Sweep (seed=42, 100 epochs, SIMPLE)
+
+| Dropout | Best Test |
+|---|---|
+| 0.0 | 77.7% |
+| 0.3 | 79.6% |
+| 0.5 | 73.5% |
+| 0.7 | 81.3% |
+| 0.9 | 73.6% |
+
+All within seed variance. Value dropout level is not a significant lever. The differences here are smaller than the 10pp seed variance we see in the 3-seed benchmarks.
+
+#### Data Size (seed=42, 100 epochs, SIMPLE, all data per epoch)
+
+| Samples | Best Test |
+|---|---|
+| 15,000 | 87.5% |
+| 50,000 | **95.6%** |
+| 150,000 | 90.9% (plateaued at ep 80, each epoch 10x longer) |
+
+**95.6% is a new all-time SIMPLE best under any configuration.** More data works. The 50k result beat the previous best (93.5%, seeds 123/7 at 200ep) on the historically weak seed 42.
+
+However, the 50k run saw all 50k samples every epoch (~780 batches vs ~234 for 15k). This means 3.3x more gradient steps per epoch, confounding data diversity with compute. The 150k run plateaued at 90.9% despite even more compute per epoch, suggesting diminishing returns or that the model overfits within each massive epoch.
+
+#### Data Size with Fixed Batches Per Epoch (seed=42, SIMPLE)
+
+To isolate data diversity from compute per epoch, reran with all configurations seeing exactly 188 batches per epoch (matching 15k baseline) using `RandomSampler` with replacement. Larger datasets provide diversity across epochs, not more compute within them.
+
+| Samples | Epochs | Best Test |
+|---|---|---|
+| 15,000 | 150 | 80.1% |
+| 50,000 | 300 | 90.3% |
+| 150,000 | 400 | 92.3% |
+| 500,000 | 500 | 72.5% |
+| 100,000 | 1,000 | **96.3%** |
+
+**96.3% is a new all-time SIMPLE best under any configuration, any seed.** The 100k/1000ep run's parameter inspection showed gate 73/27 trend/periodic, 16/128 active dims.
+
+The replacement-based sampling hurts small pools (15k scored 80.1% vs 87.5% with normal iteration). The 500k run didn't have enough epochs to make use of its pool. The 100k run reached 96.3% within 1000 epochs. For comparison, 50k with all data per epoch reached 95.6% in 100 epochs.
+
+#### What We've Learned
+
+1. **LR scheduling is not a lever.** Constant LR beat cosine and warmup+cosine on both SIMPLE and HARD.
+2. **Value dropout is not a lever.** Tested 0.0 through 0.9 on SIMPLE; all within seed variance.
+3. **More data helps.** Both the all-data runs and fixed-batch runs show improvement with more samples, up to a point.
+4. **We haven't found an efficient way to use more data.** 50k with all data per epoch reached 95.6% in 100 epochs. 100k with fixed batches reached 96.3% but needed 1000 epochs. The relationship between pool size, sampling strategy, and epoch budget is not yet understood.
+5. **HARD data scaling: 200K/1000ep reached 84.1%.** New all-time HARD best (previous: 78.0%). Hit 84.1% around epoch 280, then oscillated 45-72% for the remaining 300 epochs without improving. Train accuracy stayed at 83-85% throughout — notably lower than the 95%+ train accuracy seen with smaller datasets. The model wasn't memorizing individual samples, but the test instability pattern from earlier HARD experiments persisted.
+
+#### Proof Run: 200K Samples, 500 Epochs, SIMPLE + HARD (seed=42)
+
+Ran both configs with full model (500 epochs) + 3 ablations (100 epochs each), plus diagnostic visualizations: confusion matrix, expert cycle vs model predictions over time, parameter inspection.
+
+| Config | Full Model | Baseline | Temporal Only | Source Only | Random |
+|---|---|---|---|---|---|
+| SIMPLE | **87.3%** | 33.5% | 33.5% | 33.2% | 33.3% |
+| HARD | **86.9%** | 13.0% | 13.0% | 13.0% | 12.5% |
+
+All ablations at random. Trust learning requires both temporal and source information together.
+
+**Parameter inspection:**
+
+| | Gate (trend/periodic) | Active dims | Temporal variance |
+|---|---|---|---|
+| SIMPLE | trend-heavy (not recorded exactly) | 78/128 | 8.38 |
+| HARD | 51/49 (nearly even) | 17/128 | 7.64 |
+
+HARD used a more balanced gate but far fewer active dimensions (17 vs 78). Different solutions to different problems.
+
+**Per-source accuracy (test set):**
+- SIMPLE: S0 not in test window, S1: 92%, S2: 80%
+- HARD: S0: 91%, S4: 79%, S5: 87%, S6: 85%, S7: 88%. S1-S3 not in test window.
+
+Sources not in the test window reflect the chronological split — the last 200 days of a 1000-day range doesn't cover every expert's phase.
+
+**Error analysis (expert cycle vs predictions chart):**
+
+From the diagnostic visualizations: **errors are more frequent at expert transition boundaries but also present during stable phases.** At handoff points accuracy drops to 20-40%. During stable phases accuracy is typically 80-95% — better but not perfect. This pattern holds on both SIMPLE and HARD.
+
+On HARD with 8 sources and a 365-day cycle, expert windows are shorter and transitions more frequent, so there are more dips. When the model is wrong, the confusion matrix shows errors spread roughly uniformly across non-expert sources — it's not systematically confusing specific pairs. At transitions it's essentially guessing; during stable phases it still makes some errors but at a lower rate.
+
+#### Future: Trend vs Periodic Gate Behavior
+
+The encoding gates between a trend (linear) component and a periodic (sinusoidal) component. For our trust problem the expert cycle is a pure sine — the ideal solution should be fully periodic. But the model often learns trend-heavy solutions (e.g. 73/27 trend/periodic on the 100k/1000ep SIMPLE run) and still scores well.
+
+This raises questions for harder problems down the line:
+- **Trend + periodicity**: What if the expert cycle drifts over time (e.g. seasonal but with growing amplitude)? The model would need both components working together — trend for the drift, periodic for the cycle.
+- **Non-sinusoidal repeating patterns**: A repeating sequence like AABCBADBCA is purely periodic but not sinusoidal. The periodic component should still handle this (multiple frequency bands can compose arbitrary repeating patterns), but the gate behavior might differ.
+- **Regime changes**: A one-time structural shift (rules change permanently at some date) is pure trend, no periodicity. The gate should go fully trend-heavy.
+
+Understanding why the model prefers trend on a purely periodic problem — and whether that limits its ceiling — is worth revisiting once the simpler cases are more fully understood.
+
+---
+
+## Phase 20: Multi-Scale Context Window (Mar 28, 2026)
+
+### Motivation
+
+Previous architectures showed each training sample a single timestamp with N source predictions. The model had to piece together the expertise cycle across thousands of independent single-timestamp examples over many epochs. The cycle structure was never visible within a single training example.
+
+Multi-scale context window changes this: each sample sees K=8 timestamps, each with all N source predictions. Loss is computed across all K targets — 8x gradient signal per sample. Different samples span different time scales via log-uniform span selection, from ~1 hour to the full date range.
+
+### Architecture Change
+
+**Sampling:** Each sample picks a random span size (log-uniform from K indices to full range), places K=8 timestamps evenly within it. Different samples see different scales. With 200K points over ~1000 days, each index is ~7 minutes apart, so spans range from ~1 hour (K=8 indices) to ~1000 days. The timestamp encoding supports scales down to sub-second, but the data resolution limits testing to ~minutes and above.
+
+```python
+span = int(np.exp(np.random.uniform(np.log(K), np.log(num_datapoints - 1))))
+start = np.random.randint(0, num_datapoints - span)
+indices = np.linspace(start, start + span, K, dtype=int)
+```
+
+**Model:** Self-attention across K×N tokens (K timestamps × N sources). Cross-attention: K queries (timestamp encoding at each target) attend to K×N context. Output: K predictions, one per timestamp.
+
+**Token structure unchanged:** `cat([v, t, s, t*s])` — value, projected timestamp encoding, source embedding, multiplicative interaction. Each in its own d_model=32 subspace, total 128 dims.
+
+### Results (bench_v7_multiscale.py, 200K samples, 100 epochs, 375 fixed batches/epoch, seed=42)
+
+| Config | Best Test Acc | Previous Best | Total Epochs |
+|--------|--------------|---------------|--------------|
+| **HARD Full** | **88.6%** | 86.9% (Phase 19, 500ep) | 100 |
+| **SIMPLE Full** | **97.3%** | 96.3% (Phase 19, 1000ep) | 100 |
+
+Both are new records. The run used 100 total epochs vs 500-1000 in Phase 19. The exact epoch where best test was achieved was not recorded.
+
+**Parameter inspection:**
+
+| | Gate (trend/periodic) | Active dims |
+|---|---|---|
+| HARD | 0.368 / 0.632 | 89/128 |
+| SIMPLE | 0.204 / 0.796 | 108/128 |
+
+Both models shifted toward periodic-dominant gating compared to Phase 19 (HARD was 51/49, now 63% periodic). Active dims increased substantially (HARD: 17 → 89, SIMPLE: 78 → 108).
+
+**Ablations:**
+
+| Config | Baseline | Temporal Only | Source Only | Random |
+|--------|----------|---------------|-------------|--------|
+| HARD | 12.8% | 12.8% | 12.7% | 12.5% |
+
+All ablations at random. Note: an initial source-only run showed 14.2% due to a bug where the timestamp encoding leaked into the cross-attention query when `use_temporal=False`. After fixing (mean pooling fallback, matching trust_v7.py), source-only dropped to 12.7% — random.
+
+### What this shows
+
+1. **Multi-scale context window produced new records on both HARD and SIMPLE.** HARD 88.6% (prev 86.9%), SIMPLE 97.3% (prev 96.3%), both in 100 epochs instead of 500-1000.
+
+2. **More active dimensions and stronger periodic gating.** The model uses more of the encoding (89/128 and 108/128 active dims vs 17 and 78 previously) and leans more toward the periodic path. With the cycle structure visible within individual training examples, the encoding appears to activate more of its capacity.
+
+3. **Ablations remain at random.** The trust triplet (source + time + content) is still the only combination that learns.
+
+4. **Efficiency gain.** 100 epochs × 375 batches = 37,500 gradient steps. Previous best needed 500-1000 epochs × 375 batches = 187,500-375,000 steps. Roughly 5-10x fewer steps to a better result.
+
+### Ablation bug found and fixed
+
+When adapting the multi-scale architecture from trust_v7.py, the `use_temporal=False` code path was implemented incorrectly: the timestamp encoding was still computed and used as the cross-attention query even when temporal information was supposed to be ablated. This caused source-only to score 14.2% instead of the expected ~12.5%.
+
+The fix: when `use_temporal=False`, replace cross-attention with mean pooling over source tokens per timestamp (matching trust_v7.py's fallback). After the fix, source-only dropped to 12.7% — random. The bug did not affect full model results or temporal-only ablations (both have `use_temporal=True`).
+
+### Test window coverage bug
+
+The bench_v7_multiscale results (88.6% HARD, 97.3% SIMPLE) used a date range of 2020-01-01 to 2022-09-27 (~1000 days). With a chronological 80/20 split, the test window was ~200 days — less than one full HARD cycle (365 days) or SIMPLE cycle (500 days). The confusion matrix revealed that sources 1, 2, 3 had zero test samples (never expert during the test window), and source 4 had only 9.5%. The 88.6% HARD number was measured on 5 of 8 sources.
+
+This doesn't invalidate the architecture or the ablation proof, but the accuracy numbers are not fully representative.
+
+### trust_v8.py — Self-Contained Proof (Mar 28-29, 2026)
+
+Self-contained proof file importing only from `time_transformer_proof.py`. Incorporates the multi-scale context window, the ablation fix (mean pooling when `use_temporal=False`), and an extended date range to ensure full cycle coverage in the test window.
+
+**Date range fix:** Extended from 2020-2022 (~1000 days) to 2015-2022 (~2827 days). The test window (last 20% = ~565 days) now covers 1.55 HARD cycles and 1.13 SIMPLE cycles. All sources appear in the test set.
+
+#### v8 Full Results (400K samples, 200 epochs full / 50 epochs ablation, 375 fixed batches/epoch, seed=42)
+
+| Config | Best Test Acc | Random |
+|--------|-------------|--------|
+| **HARD Full** | **88.5%** | 12.5% |
+| **SIMPLE Full** | **96.7%** | 33.3% |
+| HARD Baseline (Value Only) | 12.5% | 12.5% |
+| SIMPLE Baseline (Value Only) | 33.5% | 33.3% |
+| HARD Temporal Only | 12.5% | 12.5% |
+| SIMPLE Temporal Only | 33.4% | 33.3% |
+| HARD Source Only | 12.5% | 12.5% |
+| SIMPLE Source Only | 33.4% | 33.3% |
+
+All 8 ablations at random. Both full models well above random. The trust triplet holds cleanly.
+
+**Parameter inspection:**
+
+| | Gate (trend/periodic) | Active dims | Temporal variance |
+|---|---|---|---|
+| HARD | 0.165 / 0.835 | 39/128 | 14.37 |
+| SIMPLE | 0.419 / 0.581 | 41/128 | 18.19 |
+
+HARD shifted strongly toward periodic (83.5%), the most periodic-dominant result across all phases. SIMPLE is more balanced (58.1% periodic). Both use ~40/128 active dimensions.
+
+**Confusion matrix (HARD):** All 8 sources present in test. Per-source accuracy: S0 90%, S1 86%, S2 89%, S3 89%, S4 88%, S5 88%, S6 89%, S7 88%. Clean diagonal — when wrong, errors spread uniformly across non-expert sources. No systematic pair confusion.
+
+**Confusion matrix (SIMPLE):** All 3 sources at 96-97%. Counts more evenly distributed than HARD.
+
+**Expert cycle (HARD):** Model picks track the true expert across the full test window. Accuracy stays 80-95% during stable expert phases. Errors concentrate at transition boundaries but the dips are shallower than Phase 19 (~50-70% at transitions vs 20-40% previously).
+
+**Expert cycle (SIMPLE):** Near-perfect tracking. Accuracy 90%+ during stable phases, dips to ~60-70% at the 5 transition boundaries, recovers immediately. Overall 96.8%.
+
+**Training curves:** Both HARD and SIMPLE show train/test tracking closely with no memorization gap. HARD oscillates more widely (20-30pp dips) but the best-test ceiling climbs steadily throughout 200 epochs — the accuracy envelope was still rising at epoch 200. SIMPLE shows less oscillation, with accuracy plateauing in the mid-90s by epoch 100.
+
+#### What this shows
+
+1. **88.5% HARD on all 8 sources.** Comparable to the bench result (88.6%) but now measured on a representative test set. The bench number was inflated by testing only 5 of 8 sources.
+
+2. **96.7% SIMPLE on all 3 sources.** Slightly below bench (97.3%) for the same reason — a harder, more representative test.
+
+3. **All 8 ablations at random.** The trust triplet proof is fully confirmed across both configs with clean ablations.
+
+4. **Transition boundaries are the remaining error source.** Both HARD and SIMPLE show accuracy dips at expert handoff points. The dips are shallower than Phase 19, suggesting the multi-scale context window helps the model see transitions within individual training examples.
+
+5. **HARD is not plateauing at 200 epochs.** The training curve shows the accuracy envelope still rising. More epochs or more data may push further.
+
+6. **Two files constitute the proof.** `time_transformer_proof.py` (timestamp encoding works) and `trust_v8.py` (trust learning works). Everything else is research history.
